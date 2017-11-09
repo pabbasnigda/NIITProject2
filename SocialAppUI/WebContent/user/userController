@@ -1,0 +1,9 @@
+app.controller('loginController', function($scope) {
+	$scope.message = 'Look! I am an login page.';
+});
+
+app.controller('registrationController', function($scope) {
+	$scope.message = 'Look! I am an registration page.';
+});
+
+
