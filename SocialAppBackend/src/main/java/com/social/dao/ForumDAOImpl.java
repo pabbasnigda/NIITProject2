@@ -8,27 +8,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.social.model.Blog;
 
-@Repository("BlogDAO")
-public class BlogDAOImpl implements BlogDAO
-{	
+import com.social.model.Forum;
+
+@Repository("forumDAO")
+public class ForumDAOImpl implements ForumDAO
+{
 	@Autowired
 	SessionFactory sessionFactory;
 	@Autowired
-	BlogDAO blogDAO;
-	
-	public BlogDAOImpl(SessionFactory sessionFactory)
+	ForumDAO forumDAO;
+
+	public ForumDAOImpl(SessionFactory sessionFactory)
 	{
 		this.sessionFactory=sessionFactory;
 	}
 	
 	@Transactional
-	public boolean addBlog(Blog blog) 
+	public boolean addForum(Forum forum) 
 	{
 		try
 		{
-		sessionFactory.getCurrentSession().save(blog);
+		sessionFactory.getCurrentSession().save(forum);
 		return true;
 		}
 		catch(Exception e)
@@ -39,11 +40,11 @@ public class BlogDAOImpl implements BlogDAO
 	}
 
 	@Transactional
-	public boolean updateBlog(Blog blog) 
+	public boolean updateForum(Forum forum) 
 	{
 		try
 		{
-		sessionFactory.getCurrentSession().update(blog);
+		sessionFactory.getCurrentSession().update(forum);
 		return true;
 		}
 		catch(Exception e)
@@ -51,47 +52,48 @@ public class BlogDAOImpl implements BlogDAO
 		System.out.println("Exception occured:"+e);
 		return false;
 		}	
-	}
-
-	@Transactional
-	public boolean deleteBlog(Blog blog) 
-	{
-		try
-		{
-		sessionFactory.getCurrentSession().delete(blog);
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception occured:"+e);
-		return false;
-		}	
-	}
-
-	@Transactional
-	public Blog getBlog(int blogId) 
-	{
-		Session session=sessionFactory.openSession();
-		Blog blog=(Blog)session.get(Blog.class, blogId);
-		session.close();
-		return blog;
 	}
 	
 	@Transactional
-	public List<Blog> getAllBlogs() 
+	public boolean deleteForum(Forum forum) 
 	{
-		Session session=sessionFactory.openSession();
-		List<Blog> blogList=(List<Blog>)session.createQuery("from Blog").list();
-		session.close();
-		return blogList;
+		try
+		{
+		sessionFactory.getCurrentSession().delete(forum);
+		return true;
+		}
+		catch(Exception e)
+		{
+		System.out.println("Exception occured:"+e);
+		return false;
+		}
 	}
 
 	@Transactional
-	public boolean approveBlog(Blog blog) 
+	public Forum getForum(int forumId) 
+	{
+		Session session=sessionFactory.openSession();
+		Forum forum=(Forum)session.get(Forum.class, forumId);
+		session.close();
+		return forum;
+
+	}
+
+	@Transactional
+	public List<Forum> getAllForums()
+	{
+		Session session=sessionFactory.openSession();
+		List<Forum> forumList=(List<Forum>)session.createQuery("from Forum").list();
+		session.close();
+		return forumList;
+	}
+
+	@Transactional
+	public boolean approveForum(Forum forum) 
 	{
 		try{
-			blog.setStatus("A");
-			sessionFactory.getCurrentSession().saveOrUpdate(blog);
+			forum.setStatus("A");
+			sessionFactory.getCurrentSession().saveOrUpdate(forum);
 			return true;
 			}
 			catch(Exception e)
@@ -101,7 +103,7 @@ public class BlogDAOImpl implements BlogDAO
 			}	
 	}
 
-	public boolean rejectBlog(Blog blog) {
+	public boolean rejectForum(Forum forum) {
 		// TODO Auto-generated method stub
 		return false;
 	}

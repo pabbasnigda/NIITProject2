@@ -1,0 +1,7 @@
+com\social\dao\ForumDAOImpl.class
+com\social\model\Blog.class
+com\social\model\Forum.class
+com\social\dao\ForumDAO.class
+com\social\dao\BlogDAO.class
+com\social\dao\BlogDAOImpl.class
+com\social\config\Dbconfig.class

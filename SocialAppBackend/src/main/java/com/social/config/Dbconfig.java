@@ -18,7 +18,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.social.dao.BlogDAO;
 import com.social.dao.BlogDAOImpl;
+import com.social.dao.ForumDAO;
+import com.social.dao.ForumDAOImpl;
 import com.social.model.Blog;
+import com.social.model.Forum;
 
 @Configuration
 @EnableTransactionManagement
@@ -51,6 +54,7 @@ public class Dbconfig
 		LocalSessionFactoryBuilder localSessionFactoryBuilder=new LocalSessionFactoryBuilder(getOracleDataSource());
 		localSessionFactoryBuilder.addProperties(getHibernateProperties());
 		localSessionFactoryBuilder.addAnnotatedClass(Blog.class);
+		localSessionFactoryBuilder.addAnnotatedClass(Forum.class);
 		localSessionFactoryBuilder.scanPackages("com.social");
 		System.out.println("SessionFactory Bean Created");
 		return localSessionFactoryBuilder.buildSessionFactory();
@@ -71,5 +75,12 @@ public class Dbconfig
 	{
 		System.out.println("Blog DAO object Created");
 		return new BlogDAOImpl(sessionFactory);
+	}
+	@Autowired
+	@Bean(name = "forumDAO")
+	public ForumDAO getForumDAO(SessionFactory sessionFactory)
+	{
+		System.out.println("Forum object Created");
+		return new ForumDAOImpl(sessionFactory);
 	}
 }
