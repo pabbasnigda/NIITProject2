@@ -19,10 +19,13 @@ import com.niit.rest.dao.BlogDAO;
 import com.niit.rest.dao.BlogDAOImpl;
 import com.niit.rest.model.Blog;
 import com.niit.rest.model.Forum;
+import com.niit.rest.model.Friend;
 import com.niit.rest.model.Job;
 import com.niit.rest.model.UserDetails;
 import com.niit.rest.dao.ForumDAO;
 import com.niit.rest.dao.ForumDAOImpl;
+import com.niit.rest.dao.FriendDAO;
+import com.niit.rest.dao.FriendDAOImpl;
 import com.niit.rest.dao.JobDAO;
 import com.niit.rest.dao.JobDAOImpl;
 import com.niit.rest.dao.UserDAO;
@@ -63,6 +66,7 @@ public class Dbconfig
 		localSessionFactoryBuilder.addAnnotatedClass(Forum.class);
 		localSessionFactoryBuilder.addAnnotatedClass(UserDetails.class);
 		localSessionFactoryBuilder.addAnnotatedClass(Job.class);
+		localSessionFactoryBuilder.addAnnotatedClass(Friend.class);
 		localSessionFactoryBuilder.scanPackages("com.niit.rest");
 		System.out.println("SessionFactory Bean Created");
 		return localSessionFactoryBuilder.buildSessionFactory();
@@ -107,5 +111,13 @@ public class Dbconfig
 	{
 		System.out.println("Job object created");
 		return new JobDAOImpl(sessionFactory);
+	}
+	
+	@Autowired
+	@Bean(name = "friendDAO")
+	public FriendDAO getFriendDAO(SessionFactory sessionFactory)
+	{
+		System.out.println("Friend object created");
+		return new FriendDAOImpl(sessionFactory);
 	}
 }

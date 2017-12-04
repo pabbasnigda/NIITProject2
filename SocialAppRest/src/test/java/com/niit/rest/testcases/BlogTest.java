@@ -46,7 +46,7 @@ public class BlogTest
 			blog.setLikes(6);
 			blog.setCreateDate(new java.util.Date());
 			
-			assertTrue("Problem in Inserting Blog",blogDAO.addBlog(blog));
+	 		assertTrue("Problem in Inserting Blog",blogDAO.addBlog(blog));
 	 	}
 	 	
 	 	@Ignore
