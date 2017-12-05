@@ -2,13 +2,17 @@ com\niit\rest\dao\BlogDAO.class
 com\niit\rest\dao\ForumDAOImpl.class
 com\niit\rest\config\Dbconfig.class
 com\niit\rest\dao\ForumDAO.class
+com\niit\rest\dao\FriendDAOImpl.class
 com\niit\rest\config\WebInitializer.class
+com\niit\rest\controller\ForumController.class
+com\niit\rest\model\Friend.class
 com\niit\rest\dao\UserDAO.class
 com\niit\rest\model\Forum.class
 com\niit\rest\dao\JobDAO.class
 com\niit\rest\model\Blog.class
 com\niit\rest\model\Job.class
 com\niit\rest\model\UserDetails.class
+com\niit\rest\dao\FriendDAO.class
 com\niit\rest\dao\UserDAOImpl.class
 com\niit\rest\controller\BlogController.class
 com\niit\rest\dao\BlogDAOImpl.class
