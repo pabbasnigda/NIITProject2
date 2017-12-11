@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>SocialSite </title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+<!--  <nav class="navbar navbar-inverse">  -->
+<table width="100%">
+
+<tr bgcolor="aqua">
+<td> <center><i>Social CollaborationSite</i></center></td>
+</tr>
+
+
+ <tr bgcolor="orange" height="100%" width="100%">  
+
+<td>
+<a href="#/">Home</a> &nbsp;&nbsp;&nbsp;
+<a href="#/Blog">Blog</a> &nbsp;&nbsp;&nbsp;
+<a href="#/Forum">Forum</a>&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+<tr>
+<td><div><ng-view></ng-view></div></td>
+</tr>
+</nav>
+
+</table>
+<script src="RouteConfig.js"></script>
+</body>
+<br>
+<br>
+<center>Copyright since 2015</center>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>BlogPage</title>
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+</head>
+
+<body>
+<div ng-controller="BlogController">
+<table>
+<tr>
+  <td>Blog Name</td>
+  <td>Blog Content</td>
+</tr>
+
+<tr ng-repeat="blog in blogdata">
+  <td>{{blog.blogName}}</td>
+  <td>{{blog.blogContent}}</td>
+  </tr>
+
+</table>
+
+<form id="blogformid" method="post">
+<table width="100%">
+
+<tr bgcolor="yellow">
+    <td>Blog Name</td>
+    <td>Blog Content</td>
+    <td colspan="2">Operations</td> 
+ </tr>
+ 
+ <tr bgcolor="orange" ng-repeat="blog in blogdata">
+  <td><a href="Blog Page">{{blog.blogName}}</a></td>
+  <td>{{blog.blogContent}}</td>
+  <td><input type="submit" value="Delete" ng-click="deleteBlog()blog.blogId)"></td>
+    <td><input type="submit" value="Edit" ng-click="editBlog()blog.blogId)"></td>
+  </tr>
+ 
+</table>
+</form>
+</div>
+</body>
+</html>
