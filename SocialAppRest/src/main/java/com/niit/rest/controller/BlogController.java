@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,47 @@ public class BlogController
 		else
 		{
 			return new ResponseEntity<String>("Error in responseentity",HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+	
+	@GetMapping(value="/approveBlog/{blogid}")
+	public ResponseEntity<String> approveBlog(@PathVariable("blogid") int blogid)
+	{
+		Blog tempBlog=blogDAO.getBlog(blogid);
+		if(blogDAO.approveBlog(tempBlog))
+		{
+			return new ResponseEntity<String>("Blog approved successfully",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error in blog approval",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping(value="/rejectBlog/{blogid}")
+	public ResponseEntity<String> rejectBlog(@PathVariable("blogid") int blogid)
+	{
+		Blog tempBlog=blogDAO.getBlog(blogid);
+		if(blogDAO.rejectBlog(tempBlog))
+		{
+			return new ResponseEntity<String>("Blog rejected successfully",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error in blog rejection",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/incLike/{blogid}")
+	public ResponseEntity<String> incrementLike(@PathVariable("blogid") int blogid)
+	{
+		Blog tempblog=blogDAO.getBlog(blogid);
+		if(blogDAO.incrementLike(tempblog))
+		{
+			return new ResponseEntity<String>("like incremented",HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<String>("error in like increment",HttpStatus.METHOD_FAILURE);
 		}
 	}
 }

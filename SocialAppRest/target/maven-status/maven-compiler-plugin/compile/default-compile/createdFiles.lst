@@ -15,6 +15,8 @@ com\niit\rest\model\UserDetails.class
 com\niit\rest\dao\FriendDAO.class
 com\niit\rest\dao\UserDAOImpl.class
 com\niit\rest\controller\BlogController.class
+com\niit\rest\controller\JobController.class
 com\niit\rest\dao\BlogDAOImpl.class
+com\niit\rest\controller\UserDetailsController.class
 com\niit\rest\dao\JobDAOImpl.class
 com\niit\rest\config\WebResolver.class

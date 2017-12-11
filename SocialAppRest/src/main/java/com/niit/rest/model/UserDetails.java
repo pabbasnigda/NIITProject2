@@ -12,6 +12,7 @@ public class UserDetails
 	 @Id
 	 @GeneratedValue
 	 int userId;
+	 String username;
 	 String firstName;
 	 String lastName;
 	 String password;
@@ -19,6 +20,13 @@ public class UserDetails
 	 String role;
 	 String status;
 	 String isOnline;
+	 
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public int getUserId() {
 		return userId;
 	}

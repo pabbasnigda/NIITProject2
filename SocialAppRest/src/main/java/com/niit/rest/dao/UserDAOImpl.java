@@ -2,6 +2,8 @@ package com.niit.rest.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,9 @@ public class UserDAOImpl implements UserDAO
 	UserDAO userDAO;
 	
 	public UserDAOImpl(SessionFactory sessionFactory)
-	{
+	{	
 		this.sessionFactory=sessionFactory;
 	}
-
-
 		
 	@Transactional
 	public boolean updateOnlineStatus(String status, UserDetails user) 
@@ -72,10 +72,43 @@ public class UserDAOImpl implements UserDAO
 	@Transactional
 	public UserDetails getUserDetails(String username) 
 	{
-		Session session=sessionFactory.openSession();
-		UserDetails user=(UserDetails)session.get(UserDetails.class,username);
-		session.close();
-		return user;
+		try
+		{
+			Session session=sessionFactory.openSession();
+			UserDetails user=(UserDetails)session.get(UserDetails.class,username);
+			session.close();
+			return user;
+		}
+		catch(Exception e)
+		{
+			e.getMessage();
+		}
+		return null;
+	}
+
+
+	@Override
+	public boolean checkLogin(UserDetails user) 
+	{
+		try
+		{
+			Session session=sessionFactory.openSession();
+			
+			Query query=(Query) session.createQuery("from UserDetails where username=uname and password=pwd");
+			query.setParameter("uname", user.getUsername());
+			query.setParameter("pwd", user.getPassword());
+			
+			UserDetails userDetail=(UserDetails)query.getResultList().get(0);
+			session.close();
+			if(userDetail==null)
+				return false;
+			else
+				return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 
 }

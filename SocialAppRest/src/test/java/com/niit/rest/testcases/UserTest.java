@@ -40,11 +40,12 @@ public class UserTest
 	public void addUserTest()
 	{
 		UserDetails user=new UserDetails();
-		user.setUserId(14);
-		user.setFirstName("Snigda");
-		user.setLastName("pabba");
-		user.setEmailId("snigda@gmail.com");
-		user.setPassword("56789");
+		//user.setUserId(14);
+		user.setUsername("saikumar");
+		user.setFirstName("Saikumar");
+		user.setLastName("gajula");
+		user.setEmailId("saikumar@gmail.com");
+		user.setPassword("12345");
 		user.setRole("User");
 		user.setStatus("P");
 		user.setIsOnline("O");
@@ -52,6 +53,24 @@ public class UserTest
 
 	}
 
+	@Ignore
+	@Test
+	public void isOnlineTest()
+	{
+		UserDetails user=userDAO.getUserDetails("saikumar");
+		assertTrue("problem in updation", userDAO.updateOnlineStatus("N", user));
+	}
+	
+	@Test
+	public void checkLoginTest()
+	{
+		UserDetails userDetail=new UserDetails();
+		userDetail.setUsername("saikumar");
+		userDetail.setPassword("12345");
+		
+		assertTrue("problem in login",userDAO.checkLogin(userDetail));
+	}
+	
 	@Ignore
 	@Test
 	public void getAllUserTest()

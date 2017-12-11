@@ -17,4 +17,6 @@ C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\model\Friend.java
 C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\dao\UserDAO.java
 C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\model\Job.java
 C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\config\Dbconfig.java
+C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\controller\UserDetailsController.java
+C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\controller\JobController.java
 C:\Users\DELL\git2\SocialAppRest\src\main\java\com\niit\rest\model\UserDetails.java

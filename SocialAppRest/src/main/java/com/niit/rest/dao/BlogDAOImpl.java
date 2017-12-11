@@ -91,7 +91,7 @@ public class BlogDAOImpl implements BlogDAO
 	{
 		try{
 			blog.setStatus("A");
-			sessionFactory.getCurrentSession().saveOrUpdate(blog);
+			sessionFactory.getCurrentSession().update(blog);
 			return true;
 			}
 			catch(Exception e)
@@ -101,9 +101,36 @@ public class BlogDAOImpl implements BlogDAO
 			}	
 	}
 
-	public boolean rejectBlog(Blog blog) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean rejectBlog(Blog blog) 
+	{
+		try{
+			blog.setStatus("N");
+			sessionFactory.getCurrentSession().update(blog);
+			return true;
+			}
+			catch(Exception e)
+			{
+			System.out.println("Exception occured:"+e);
+			return false;
+			}
+	}
+
+	@Override
+	@Transactional
+	public boolean incrementLike(Blog blog) 
+	{
+		try 
+		{
+			blog.setLikes(blog.getLikes() + 1);
+			sessionFactory.getCurrentSession().update(blog);
+			return true;
+		} 
+		catch(Exception e) 
+		{
+			System.out.println("exception arised" + e);
+			return false;
+		}
 	}
 
 }

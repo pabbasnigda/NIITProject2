@@ -66,6 +66,7 @@ public class BlogTest
 	 			Blog blog=(Blog)blogDAO.getBlog(1);
 	 			blog.setBlogName("Advanced java");
 	 			blog.setBlogContent("OOPS concepts");
+	 			blog.setLikes(17);
 	 			assertTrue("Problem in updating Blog",blogDAO.updateBlog(blog));
 	 	}
 	 	
@@ -85,7 +86,7 @@ public class BlogTest
 			assertTrue("Problem in approving",blogDAO.approveBlog(blog));
 		}
 	 	
-	 	//@Ignore
+	 	@Ignore
 	 	@Test
 		public void getAllBlogsTest()
 	 	{
@@ -95,6 +96,14 @@ public class BlogTest
 			{
 				System.out.println("BlogID:"+blog.getBlogId() + "BlogName:"+blog.getBlogName());
 			}
+		}
+	 	
+	 	@Ignore
+	 	@Test
+		public void rejectBlogTest()
+	 	{
+			Blog blog=(Blog)blogDAO.getBlog(2);
+			assertTrue("Problem in rejection",blogDAO.rejectBlog(blog));
 		}
 	 	
 }
