@@ -1,0 +1,6 @@
+ArrayList is a part of collection framework and is present in java.util package
+It provides us dynamic arrays in Java
+The ArrayList class extends AbstractList and implements the List interface.
+
+List of constructors:
+ArrayList(), ArrayList(Collection c), ArrayList(int capacity)

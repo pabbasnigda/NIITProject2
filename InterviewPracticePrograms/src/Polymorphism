@@ -1,0 +1,12 @@
+What is COMPILE-TIME POLYMERPHISM?
+	Static polymorphism/Early Binding/Method overloading
+	
+DEFINITION: one method can be defined many times but they should differ from:
+	1.No of arguments
+	2.Type of arguments
+	3.Method return type may or may not be same
+	
+SYNTAX:
+
+
+EXAMPLE:
