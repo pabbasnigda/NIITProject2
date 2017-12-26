@@ -2,15 +2,27 @@ package com.niit.rest.dao;
 
 import java.util.List;
 
-import com.niit.rest.model.Forum;
+
 import com.niit.rest.model.UserDetails;
 
 public interface UserDAO 
 {
-	public boolean addUserDetails(UserDetails user);
-	public boolean updateOnlineStatus(String status, UserDetails user);
-	public UserDetails getUserDetails(String username);
-	public List<UserDetails> getAllUserDetails();
-	public boolean checkLogin(UserDetails user);
+	public boolean saveUser(UserDetails user);
 	
+	public boolean updateUser(UserDetails user);
+	
+	public boolean deleteUser(int id);
+	
+	public UserDetails getUserById(int userId);
+	
+	public UserDetails getUserByEmail(String email);
+	
+	public UserDetails getUserByName(String name);
+	
+	public List<UserDetails> getAllUsers();
+
+	public boolean checkIfExistingUser(UserDetails user);
+
+	public boolean checkIfValidUser(String username, String password);
+
 }

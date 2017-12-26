@@ -52,7 +52,8 @@ public class Dbconfig
 	{
 		Properties properties=new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
-		properties.put("hibernate.dialect","org.hibernate.dialect.OracleDialect");
+		properties.setProperty("hibernate.show_sql", "true");
+		properties.put("hibernate.dialect","org.hibernate.dialect.Oracle10gDialect");
 		return properties;
 	}
 	
@@ -77,7 +78,7 @@ public class Dbconfig
 	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) 
 	{
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-		System.out.println("Transaction");
+		System.out.println("Transaction is created............!!!!");
 		return transactionManager;
 	}
 	

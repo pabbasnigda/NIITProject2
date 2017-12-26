@@ -2,7 +2,9 @@ package com.niit.rest.dao;
 
 import java.util.List;
 
+
 import org.hibernate.Session;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,71 +25,83 @@ public class FriendDAOImpl implements FriendDAO
 		this.sessionFactory=sessionFactory;
 	}
 
-	@Override
+
 	@Transactional
-	public boolean addFriend(Friend friend) 
+	public boolean createFriend(Friend friend) 
 	{
-		try
+		try 
 		{
 			sessionFactory.getCurrentSession().save(friend);
 			return true;
-		}
-		catch(Exception e)
+		} 
+		catch (Exception e) 
 		{
-			System.out.println(e);
+			System.out.println("exception arised " + e);
 			return false;
 		}
 	}
 
-	@Override
+	
 	@Transactional
-	public boolean updateFriend(Friend friend) 
+	public List<Friend> getAllFriendRequest(String username) 
 	{
-		try
-		{
-		sessionFactory.getCurrentSession().update(friend);
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception occured:"+e);
-		return false;
-		}
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from Friend where username=:username");
+		query.setParameter("username", username);
+		List<Friend> listFriends = query.list();
+		return listFriends;
 	}
 
-	@Override
+	
 	@Transactional
-	public boolean deleteFriend(Friend friend) 
+	public List<Friend> getApprovedFriends(String username) 
 	{
-		try
-		{
-		sessionFactory.getCurrentSession().delete(friend);
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception occured:"+e);
-		return false;
-		}	
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from Friend where username=:username and status='A'");
+		query.setParameter("username", username);
+		List<Friend> listFriends = query.list();
+		return listFriends;
 	}
 
-	@Override
-	@Transactional
-	public List<Friend> getAllFriends() 
-	{
-		Session session=sessionFactory.openSession();
-		List<Friend> friendList=(List<Friend>)session.createQuery("from Friend").list();
-		session.close();
-		return friendList;
-	}
-
-	@Override
 	@Transactional
 	public Friend getFriend(int friendId) 
 	{
-		Session session=sessionFactory.openSession();
-		Friend friend=(Friend)session.get(Friend.class, friendId);
-		session.close();
+		Session session = sessionFactory.openSession();
+		Friend friend = (Friend) session.get(Friend.class, friendId);
 		return friend;
+	}
+
+
+	@Transactional
+	public boolean rejectFriendRequest(Friend friend) 
+	{
+		try 
+		{
+			friend.setStatus("R");
+			sessionFactory.getCurrentSession().update(friend);
+			return true;
+		}
+		catch (Exception e) 
+		{
+			System.out.println("exception arised" + e);
+			return false;
+		}
+	}
+
+	
+	@Transactional
+	public boolean approveFriendRequest(Friend friend) 
+	{
+		try 
+		{
+			friend.setStatus("A");
+			sessionFactory.getCurrentSession().update(friend);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("exception arised" + e);
+			return false;
+		}
 	}
 }

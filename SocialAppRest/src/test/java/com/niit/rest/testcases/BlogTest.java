@@ -1,4 +1,4 @@
-package com.niit.rest.testcases;
+/*package com.niit.rest.testcases;
 
 import static org.junit.Assert.*;
 
@@ -106,4 +106,4 @@ public class BlogTest
 			assertTrue("Problem in rejection",blogDAO.rejectBlog(blog));
 		}
 	 	
-}
+}*/

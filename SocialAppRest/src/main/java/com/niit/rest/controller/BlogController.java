@@ -49,6 +49,7 @@ public class BlogController
 			return new ResponseEntity<String>("Error in responseentity",HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
+	
 	@GetMapping(value="/getAllBlogs")
 	public ResponseEntity<ArrayList<Blog>> getAllBlogs()
 	{

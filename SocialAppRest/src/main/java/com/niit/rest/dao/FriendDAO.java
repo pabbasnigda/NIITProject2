@@ -6,9 +6,10 @@ import com.niit.rest.model.Friend;
 
 public interface FriendDAO 
 {
-	public boolean addFriend(Friend friend);
-	public boolean updateFriend(Friend friend);
-	public boolean deleteFriend(Friend friend);
+	public boolean createFriend(Friend friend);
+	public List<Friend> getAllFriendRequest(String username);
+	public List<Friend> getApprovedFriends(String username);
 	public Friend getFriend(int friendId);
-	public List<Friend> getAllFriends();
+	public boolean  rejectFriendRequest(Friend friend);
+	public boolean approveFriendRequest(Friend friend);
 }

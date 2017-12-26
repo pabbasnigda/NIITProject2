@@ -1,4 +1,4 @@
-package com.niit.rest.testcases;
+/*package com.niit.rest.testcases;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -35,55 +35,67 @@ public class FriendTest
 		friendDAO=(FriendDAO)context.getBean("friendDAO");
 	}
 	
-	/*@Ignore
-	@Test
-	public void addFriendTest()
-	{
-		Friend friend= new Friend();
-		friend.setUserId(547);
-		friend.setStatus("A");
-		
-		assertTrue("Problem in Inserting friend",friendDAO.addFriend(friend));
-	}*/
-	
 	@Ignore
 	@Test
-	public void updateFriendTest()
+	public void saveFriendTest() 
 	{
-		Friend friend=(Friend)friendDAO.getFriend(18);
-		friend.setStatus("N");
-		assertTrue("Problem in updating friend",friendDAO.updateFriend(friend));
+		Friend friend = new Friend();
+		friend.setFriendId(548);
+		friend.setStatus("R");
+		friend.setUsername("snigda");
+		friend.setFriendname("shailu");
+		assertTrue("problem in friend", friendDAO.createFriend(friend));
 	}
 	
-	/*@Ignore
+	@Ignore
 	@Test
-	public void deleteFriendTest()
+	public void getAllFriendRequestTest() 
 	{
-		Friend friend=(Friend)friendDAO.getFriend(20);
-		assertTrue("Problem in deletion",friendDAO.deleteFriend(friend));
-	}*/
-	
-	/*@Ignore
-	@Test
-	public void getFriendTest()
-	{
-		Friend friend=(Friend)friendDAO.getFriend(19);
-		System.out.println("Friend status:" + friend.getStatus());
-		System.out.println("Friend ID:" + friend.getFriendId());
-		System.out.println("User ID:" + friend.getUserId());
-		assertNotNull("friend not found", friend);
-	}*/
+		List<Friend> listFriends = friendDAO.getAllFriendRequest("Sony");
+		assertNotNull("problem in list friends", listFriends);
+		for (Friend friend : listFriends) 
+		{
+			System.out.println("current username:::" + friend.getUsername());
+			System.out.println("friend name::::" + friend.getFriendname());
+			System.out.println("status::::" + friend.getStatus());
+		}
+	}
 	
 	@Ignore
 	@Test
-	public void getAllFriendsTest()
- 	{
-		List<Friend> friendList=(List<Friend>)friendDAO.getAllFriends();
-		assertNotNull("Friend list not found ",friendList.get(0));
-		for(Friend friend:friendList)
-		{
-			System.out.println("FriendID:"+friend.getFriendId() + "Status:"+friend.getStatus());
+	public void getFriendId() 
+	{
+		Friend friend = (Friend) friendDAO.getFriend(547);
+		assertNotNull("error", friend);
+		System.out.println("friend status::::" + friend.getStatus());
+	}
+	
+	@Ignore
+	@Test
+	public void getAllApprovedFriendTest() 
+	{
+		List<Friend> listFriends = friendDAO.getApprovedFriends("Sony");
+		assertNotNull("problem in listFriends", listFriends);
+		for (Friend friend : listFriends) {
+			System.out.println("current user name:::" + friend.getUsername());
+			System.out.println("current friend name:" + friend.getFriendname());
+			System.out.println("status:::" + friend.getStatus());
 		}
- 	}
-}
-
+	}
+	
+	@Ignore
+	@Test
+	public void approveFriendRequest()
+	{
+		Friend friend=friendDAO.getFriend(548);
+		assertTrue("problem in approving",friendDAO.approveFriendRequest(friend));
+	}
+	
+	
+	@Test
+	public void rejectFriendRequest()
+	{
+		Friend friend=friendDAO.getFriend(547);
+		assertTrue("problem in approving",friendDAO.rejectFriendRequest(friend));
+	}
+}*/

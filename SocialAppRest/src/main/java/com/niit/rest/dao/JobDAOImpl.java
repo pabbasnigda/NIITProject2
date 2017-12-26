@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.rest.model.Forum;
 import com.niit.rest.model.Job;
 
 @Repository("jobDAO")
@@ -40,6 +39,7 @@ public class JobDAOImpl implements JobDAO
 		}	
 	}
 
+	@Transactional
 	public List<Job> getAllJobs() 
 	{
 		Session session=sessionFactory.openSession();
@@ -50,6 +50,7 @@ public class JobDAOImpl implements JobDAO
 		return jobList;
 	}
 
+	@Transactional
 	public Job getJob(int jobId) 
 	{
 		Session session=sessionFactory.openSession();
@@ -64,6 +65,22 @@ public class JobDAOImpl implements JobDAO
 		try
 		{
 		sessionFactory.getCurrentSession().update(job);
+		return true;
+		}
+		catch(Exception e)
+		{
+		System.out.println("Exception arised:"+e);
+		return false;
+		}	
+	}
+
+
+	@Transactional
+	public boolean deleteJob(Job job) 
+	{
+		try
+		{
+		sessionFactory.getCurrentSession().delete(job);
 		return true;
 		}
 		catch(Exception e)

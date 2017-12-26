@@ -1,4 +1,4 @@
-package com.niit.rest.testcases;
+/*package com.niit.rest.testcases;
 
 
 import static org.junit.Assert.*;
@@ -34,7 +34,7 @@ public class JobTest
 		jobDAO=(JobDAO)context.getBean("jobDAO");
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void addJobTest()
 	{
@@ -72,4 +72,4 @@ public class JobTest
 		assertNotNull("Job not found", job);
 	}
 	
-}
+}*/

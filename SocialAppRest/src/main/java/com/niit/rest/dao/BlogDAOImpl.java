@@ -81,7 +81,7 @@ public class BlogDAOImpl implements BlogDAO
 	public List<Blog> getAllBlogs() 
 	{
 		Session session=sessionFactory.openSession();
-		List<Blog> blogList=(List<Blog>)session.createQuery("from Blog").list();
+		List<Blog> blogList=session.createQuery("from Blog where status != 'PENDING'").list();
 		session.close();
 		return blogList;
 	}
@@ -91,7 +91,7 @@ public class BlogDAOImpl implements BlogDAO
 	{
 		try{
 			blog.setStatus("A");
-			sessionFactory.getCurrentSession().update(blog);
+			sessionFactory.getCurrentSession().saveOrUpdate(blog);
 			return true;
 			}
 			catch(Exception e)
@@ -106,7 +106,7 @@ public class BlogDAOImpl implements BlogDAO
 	{
 		try{
 			blog.setStatus("N");
-			sessionFactory.getCurrentSession().update(blog);
+			sessionFactory.getCurrentSession().saveOrUpdate(blog);
 			return true;
 			}
 			catch(Exception e)
@@ -131,6 +131,42 @@ public class BlogDAOImpl implements BlogDAO
 			System.out.println("exception arised" + e);
 			return false;
 		}
+	}
+
+	@Transactional
+	public List<Blog> getAllBlogs(int userId) 
+	{
+		Session session = sessionFactory.openSession();
+		List<Blog> blogList= session.createQuery("from Blog where userId = :userId")
+				.setParameter("userId", userId).list();
+		
+		session.close();
+		
+		return blogList;
+	}
+
+	@Transactional
+	public List<Blog> getAllPendingBlogs() 
+	{
+		Session session = sessionFactory.openSession();
+		
+		List<Blog> blogList= session.createQuery("from Blog where status = 'PENDING'").list();
+		
+		session.close();
+		
+		return blogList;
+	}
+
+	@Transactional
+	public List<Blog> getAllApprovedBlog() 
+	{
+		Session session = sessionFactory.openSession();
+		
+		List<Blog> blogList= session.createQuery("from Blog where status = 'APPROVED'").list();
+		
+		session.close();
+		
+		return blogList;
 	}
 
 }
