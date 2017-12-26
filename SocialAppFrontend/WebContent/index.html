@@ -2,22 +2,26 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>SocialSite </title>
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<title>CollaborationFrontend</title>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script src="RouteConfig.js"></script>
+<script src="Blog/BlogController.js"></script>
+<script src="User/userController.js"></script>
+<script src="forum/forumController.js"></script>
+<script src="job/jobsController.js"></script>
+<script src="Blog/adminBlogController.js"></script>
 </head>
 
 <body ng-app="myApp">
-
-<!--  <nav class="navbar navbar-inverse">  -->
+Role : {{ currentUser.role }}
+<!--  <nav class="navbar navbar-inverse">   -->
 <table width="100%">
 
 <tr bgcolor="aqua">
-<td> <center><i>Social CollaborationSite</i></center></td>
+<td> <center><i>Social Collaboration</i></center></td>
 </tr>
 
 
@@ -27,6 +31,19 @@
 <a href="#/">Home</a> &nbsp;&nbsp;&nbsp;
 <a href="#/Blog">Blog</a> &nbsp;&nbsp;&nbsp;
 <a href="#/Forum">Forum</a>&nbsp;&nbsp;&nbsp;
+<a href="#/jobs">Jobs</a> &nbsp;&nbsp;&nbsp;
+<a href="#/login">Login</a>&nbsp;&nbsp;&nbsp;
+<a href="#/registration">Registration</a>&nbsp;&nbsp;&nbsp;
+<div ng-show="currentUser.role=='Admin'">
+					<li><a href="#adminBlog"><span
+							class="glyphicon glyphicon-user"></span>Admin Blog</a></li>
+				</div>
+				<div ng-show="currentUser.role=='User'">
+					<li><a href="#logout"><span
+							class="glyphicon glyphicon-off"></span>Logout</a></li>
+				</div>
+				<li><a href="#friend"><span class="glyphicon glyphicon-off"></span>Friends</a></li>
+
 </td>
 </tr>
 <tr>
@@ -35,7 +52,7 @@
 </nav>
 
 </table>
-<script src="RouteConfig.js"></script>
+
 </body>
 <br>
 <br>

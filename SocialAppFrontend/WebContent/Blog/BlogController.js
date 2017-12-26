@@ -1,30 +1,23 @@
-myapp.controller("BlogController",function($scope,$http,$location)
-	{
-	$scope.blog={blogId:' ',blogName:'',blogContent:'',userId:'',createDate:'',status:'',likes:''};
-	$scope.blogdata;
+myapp.controller("BlogController",function($scope,$http,$location,$rootScope)
+{
+		$scope.blog={blogId:'',blogName:'',blogContent:'',createDate:'',likes:0,username:'',status:"NA"}
+		$scope.blog;
+
+		var BASE_URL='http://localhost:8181/Collabaration'
+		$scope.insertBlog=function()
+		{
+			console.log('Entered into InsertBlog');
+			$http.post(BASE_URL+"/insertBlog", $scope.blog).then(function(response)
+				{
+				console.log('Successful Blog Entered');
+				});
+		}
+
 	
-	function fetchAllBlog()
-	{
-		console.log('Fetching all blogs');
-		$http.get("http://localhost:8181/SocialAppRest/getAllBlogs")
+		$http.get("http://localhost:8181/Collabaration/getAllBlogs")
 		.then(function(response)
 		{
 			$scope.blogdata=response.data;
-			
 		});
-	}
-	
-	
-	fetchAllBlog();
-	$scope.insertBlog=function()
-	{
-		console.log('Inserted the blog');
-		$http.post('http://localhost:8181/SocialAppRest/insertBlog',$scope.blog)
-		.then(function(response)
-		{
-			console.log('Successfully Blog inserted');
-			$location.path("/Forum");
-		});
-	}
-	}	
-);
+
+});
