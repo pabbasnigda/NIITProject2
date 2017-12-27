@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.rest.dao.JobDAO;
@@ -39,7 +40,7 @@ public class JobController
 		Job tempJob=jobDAO.getJob(job.getJobId());
 		
 		tempJob.setJobDesc(job.getJobDesc());
-		tempJob.setQualification(job.getQualification());
+		tempJob.setJobName(job.getJobName());
 		
 		if(jobDAO.updateJob(tempJob))
 		{
@@ -56,5 +57,19 @@ public class JobController
 	{
 		ArrayList listJobs=(ArrayList)jobDAO.getAllJobs();
 		return new ResponseEntity<ArrayList<Job>>(listJobs,HttpStatus.SERVICE_UNAVAILABLE);
+	}
+	
+	@RequestMapping(value = "deleteJob")
+	public ResponseEntity<String> deleteJob(@RequestBody Job job)
+	{
+		Job tempjob=jobDAO.getJob(job.getJobId());
+		if(jobDAO.deleteJob(tempjob))
+		{
+			return new ResponseEntity<String>("Job Deleted",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error in Job deletion",HttpStatus.SERVICE_UNAVAILABLE);
+		}
 	}
 }

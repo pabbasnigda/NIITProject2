@@ -1,5 +1,4 @@
-/*package com.niit.rest.testcases;
-
+package com.niit.rest.testcases;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 import com.niit.rest.dao.JobDAO;
 import com.niit.rest.config.Dbconfig;
-import com.niit.rest.model.Forum;
 import com.niit.rest.model.Job;
 
 @ComponentScan("com.niit.rest")
@@ -29,23 +27,21 @@ public class JobTest
 		AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext();
 		context.register(Dbconfig.class);
 		context.scan("com.niit.rest.*");
-         context.refresh();
+        context.refresh();
 		
 		jobDAO=(JobDAO)context.getBean("jobDAO");
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void addJobTest()
 	{
 		Job job=new Job();
-		//job.setJobId(12);
-		job.setJobProfile("Developer");
-		job.setJobDesc("Java Developer");
-		job.setQualification("B.TECH");
-		job.setStatus("Eligible");
-		job.setPostDate(new java.util.Date());
-		
+		job.setJobName("Software developer");
+		job.setJobDesc("Developing UI");
+		job.setPostedDate(new java.util.Date());
+		job.setLastDate(new java.util.Date());
+		job.setSalary(23000.90);
 		assertTrue("Problems in Inserting Job",jobDAO.addJob(job));
 	}
 	
@@ -57,7 +53,7 @@ public class JobTest
 		assertNotNull("Job list not found ",jobList.get(0));
 		for(Job job:jobList)
 		{
-		System.out.println("JobID:"+ job.getJobId() + "JobProfile:"+ job.getJobProfile());
+		System.out.println("JobID:"+ job.getJobId() + "JobName"+ job.getJobName());
 		}
 	}
 
@@ -67,9 +63,9 @@ public class JobTest
 	{
 		Job job=(Job)jobDAO.getJob(8);
 	
-		System.out.println("JobProfile:" + job.getJobProfile());
+		System.out.println("JobName:" + job.getJobName());
 		System.out.println("JobDescription:" + job.getJobDesc());
 		assertNotNull("Job not found", job);
 	}
 	
-}*/
+}
