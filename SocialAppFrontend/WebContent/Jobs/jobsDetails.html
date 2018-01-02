@@ -1,0 +1,16 @@
+<div ng-controller="jobsController">
+<table align="center" width="100" border=1>
+		
+		<tr bgcolor="orange">
+			<td>Job Profile</td>
+			<td>Job Qualification</td>
+			<td>Job Description</td>
+		</tr>
+		<tr bgcolor="cyan" ng-repeat="jobs in jobsdata">
+			<td>{{job.jobProfile}}</td>
+			<td>{{job.qualification}}</td>
+			<td>{{job.jobDesc}}
+		</tr>
+
+	</table>
+	</div>

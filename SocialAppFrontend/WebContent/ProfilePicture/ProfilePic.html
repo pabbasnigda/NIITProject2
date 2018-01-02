@@ -1,0 +1,16 @@
+<div ng-controller="userController">
+	<form: enctype="multipart/form-data" method="post" class="center" action="http://localhost:8181/SocialAppRest/doUpload">
+		<table class="responsive-table" width="100%">
+			<tr>{{currentUser.username}}
+				<td><input type="hidden" name="username" id="username" value="{{currentUser.username}}"></td>
+			</tr>
+			<tr>
+				Select Image<td><input type="file" name="file" id="file" /></td>
+			</tr><tr>
+			<td><input type="submit" value="upload"></td>
+			</tr>
+		</table>
+	</form>
+
+
+</div>

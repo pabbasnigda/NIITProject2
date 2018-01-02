@@ -1,0 +1,11 @@
+<div ng-controller="userController">
+	<table width="100%" border="1">
+		<tr bgcolor="cyan">
+			<td colspan="4"><center>Friend List</center></td>
+		<tr ng-repeat="user in allusers" bgcolor="orange">
+			<td>{{user.username}}</td>
+			<td>{{user.firstname}}</td>
+			<td ng-show="user.isOnline=='Y'">Online</td>
+			<td ng-show="user.isOnline=='N'">Offline</td>
+	</table>
+</div>

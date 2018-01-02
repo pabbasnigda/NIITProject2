@@ -1,58 +1,38 @@
-<div ng-controller="BlogController">
+<center>
+	<b font-size="6">BlogPage</b>
+</center>
+<div ng-controller="blogController">
 
-<form id="blogform" method="post">
-<table align="center" width="80%" border="1">
-	<tr>
-		<td>Blog Name</td>
-		<td><input type="text" name="blogName" ng-model="blog.blogName"/></td>
-	</tr>
-	<tr>
-		<td>Blog Content</td>
-		<td><textarea cols="30" row="10" name="blogContent" ng-model="blog.blogContent"></textarea></td>
-	</tr>
-	<tr>
-		<td colspan="2"><center><input type="submit" value="Insert Blog" ng-click="insertBlog()"/></center></td>
-	</tr>
-</table>
-</form>
-<table width="100%" width="80%" border="1">
-	<tbody>
-	 <tr bgcolor="orange"> 
-		<td> Blog Name </td>
-		<td> Blog Content </td>
-	</tr>
-	<!-- <tr bgcolor="cyan" ng-repeat="blog in blogs">
-		<td><a href="BlogPage">{{blog.blogName}}</a></td>
-		<td>{{blog.blogContent}}</td>	
-	</tr> -->
-	 
-	
+	<form id="blogform" data-ng-submit="insertBlog()" method="post">
+		<table align="center" width="100%" border=1>
+			<tr>
+				<td>Blog Name</td>
+				<td><input type="text" name="blogName" data-ng-model="blog.blogName"/></td>
+			</tr>
+			<tr>
+				<td>Blog Content</td>
+				<td><textarea cols="30" row="10" name="blogContent" data-ng-model="blog.blogContent" /></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2"><center><input type="submit" value="Insert Blog" ></center></td>
+		</table>
+	</form>
 
-				 <tr data-ng-repeat="blog in blog">
-						<td >{{blog.bid}}</td>
-					<td width="15%">{{blog.blogName}}</td>
-					<td width="70%">{{blog.blogDesc}}</td>
-					
-					
-				
-	<div class="btn-group  btn-group-justified ">
-							<sec:authorize access="isAuthenticated()">
-							<div data-ng-if="accessBlog(blog.userId)">
-								<a class="btn btn-primary btn-xs"
-									data-ng-click="deleteBlog(blog.blogId)">Delete</a>
+<br/><br/><br/><br/>
+	<table align="center" width="100%" border=1>
+		
+		<tr bgcolor="blue">
+			<td>Blog Name</td>
+			<td>Blog Content</td>
+			<td>Likes</td>
+			<td>Operations</td>
+		</tr>
+		<tr bgcolor="cyan" ng-repeat="blog in blogdata">
+			<td>{{blog.blogName}}</td>
+			<td>{{blog.blogContent}}</td>
+			<td>{{blog.likes}}<input type="submit" value="Like" ng-click="likeBlog(blog.blogId)"/></td>
+			<td colspan="2"><center><input type="submit" value=" Delete Blog" ng-click="deleteBlog(blog.blogId)"></center>
+		</tr>
 
-								<a class="btn btn-primary btn-xs"
-									data-ng-click="editBlog(blog.blogId)">Edit</a>
-							</div>
-							</sec:authorize>
-						</div>
-				</td> 
-				
-			<td>	<a href="blog/{{blog.blogId}}" class="btn btn-primary btn-xs">View</a></td>
-				<td width="5%"><a href="blog/{{blog.blogId}}" class="btn btn-primary btn-xs">Update</a></td>
-				<td width="5%"><a href="blog/{{blog.blogId}}" class="btn btn-primary btn-xs">Delete</a></td>
-				</tr>
-</tbody>
-</table>
-
+	</table>
 </div>

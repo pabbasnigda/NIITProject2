@@ -2,8 +2,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>CollaborationFrontend</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SocialCollaborationFrontend</title>
   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
 
@@ -13,37 +18,46 @@
 <script src="forum/forumController.js"></script>
 <script src="job/jobsController.js"></script>
 <script src="Blog/adminBlogController.js"></script>
+<script type="Chat/ChatController.js"></script>
+<script type="Chat/ChatService.js"></script>
+<script type="Friend/friendController.js"></script>
 </head>
 
 <body ng-app="myApp">
 Role : {{ currentUser.role }}
-<!--  <nav class="navbar navbar-inverse">   -->
-<table width="100%">
 
-<tr bgcolor="aqua">
-<td> <center><i>Social Collaboration</i></center></td>
-</tr>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SocialCollaboration</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#/Blog">Blog</a></li>
+      <li><a href="#/Forum">Forum</a></li>
+      <li><a href="#/jobs">Jobs</a></li>
+      <li><a href="#/login">Login</a></li>
+      <li><a href="#/register" data-ng-click="register()">Registration</a></li>
+      <li><a href="#friend"><span class="glyphicon glyphicon-off"></span>Friends</a></li>
+    </ul>
+  </div>
+</nav>
 
-
- <tr bgcolor="orange" height="100%" width="100%">  
-
-<td>
-<a href="#/">Home</a> &nbsp;&nbsp;&nbsp;
-<a href="#/Blog">Blog</a> &nbsp;&nbsp;&nbsp;
-<a href="#/Forum">Forum</a>&nbsp;&nbsp;&nbsp;
-<a href="#/jobs">Jobs</a> &nbsp;&nbsp;&nbsp;
-<a href="#/login">Login</a>&nbsp;&nbsp;&nbsp;
-<a href="#/registration">Registration</a>&nbsp;&nbsp;&nbsp;
 <div ng-show="currentUser.role=='Admin'">
-					<li><a href="#adminBlog"><span
-							class="glyphicon glyphicon-user"></span>Admin Blog</a></li>
-				</div>
+	<li><a href="#adminBlog"><span class="glyphicon glyphicon-user"></span>Admin Blog</a></li>
+</div>
 				<div ng-show="currentUser.role=='User'">
 					<li><a href="#logout"><span
 							class="glyphicon glyphicon-off"></span>Logout</a></li>
 				</div>
-				<li><a href="#friend"><span class="glyphicon glyphicon-off"></span>Friends</a></li>
-
+				<script type="Chat/ChatController.js"></script>
+	<li ng-show="currentUser.role=='User'"><a href="#friend"><span class="lyphicon glyphicon-user"></span>Friends</a></li>
+	<li ng-show="currentUser.role=='User'"><a href="#ProfilePicture"><span class="fa fa-shield"></span>ProfilePicture</a></li>
+	
+	<li ng-show="currentUser.role=='User'"><a href="#chat"><span class="fa fa-shield"></span>Chat</a></li>
+	<li ng-show="currentUser.role=='User' || currentUser.role=='ADMIN'">
+	<a href="#"><i class="fa fa-shield"></i>Welcome:{{currentUser.username}}</a></li>
+			
 </td>
 </tr>
 <tr>
@@ -56,5 +70,6 @@ Role : {{ currentUser.role }}
 </body>
 <br>
 <br>
-<center>Copyright since 2015</center>
+<footer>
+<center>Copyright since 2015</center></footer>
 </html>
