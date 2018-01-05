@@ -3,13 +3,17 @@ package com.niit.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.rest.dao.UserDAO;
@@ -21,18 +25,17 @@ public class UserDetailsController
 	@Autowired 
 	UserDAO userDAO;
 		
-	@RequestMapping(value="/getAllUsers",method=RequestMethod.GET,headers="Accept=application/json")
+	@RequestMapping(value="/getAllUsers")
 	public List <UserDetails> getAllUser()
 	{
-		return userDAO.getAllUsers();
+		return userDAO.getAllUserDetails();
 	}
-	
 	@PostMapping(value="/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserDetails userDetail)
 	{
 		userDetail.setRole("user");
-		if(userDAO.saveUser(userDetail))
-		{		
+		if(userDAO.addUserDetail(userDetail))
+		{
 			return new ResponseEntity<UserDetails>(userDetail,HttpStatus.OK);
 		}
 		else
@@ -42,18 +45,40 @@ public class UserDetailsController
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<UserDetails> loginStatus(@RequestBody UserDetails userDetail)
+	public ResponseEntity<?> loginStatus(@RequestBody UserDetails userDetail,HttpSession session)
 	{
-		userDetail=userDAO.getUserByEmail(userDetail.getEmail());
-		if((userDetail==null))
+		UserDetails user=userDAO.getUserDetails(userDetail.getUsername());
+		boolean userExists = userDAO.checkLogin(user.getUsername(), user.getPassword());
+		System.out.println(userDetail.getUsername());
+		
+		System.out.print(userExists);
+		
+		if (userExists) 
 		{
-			userDetail=new UserDetails();
-			System.out.println("user email invalid");
-		}
-		else
+			userDAO.updateOnlineStatus("Y",user);
+			session.setAttribute("username", user.getUsername());
+			return new ResponseEntity<UserDetails>(user, HttpStatus.OK);
+		} 
+		else 
 		{
-			System.out.println("login user");
+			Error error = new Error("unable to login user details");
+			return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<UserDetails>(userDetail,HttpStatus.OK);
+	
+	 
+	}
+	
+	@GetMapping(value = "/logout/{username}")
+	public ResponseEntity<String> loggingout(@PathVariable("username") String username) 
+	{
+		UserDetails user = userDAO.getUserDetails(username);
+		if (userDAO.updateOnlineStatus("N", user)) {
+			return new ResponseEntity<String>("Successful logout", HttpStatus.OK);
+		} 
+		else 
+		{
+			return new ResponseEntity<String>("error in logout", HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	
 	}
 }

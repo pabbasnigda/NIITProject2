@@ -1,6 +1,6 @@
 package com.niit.rest.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,16 +17,15 @@ public class UserDetails
 	private String firstName;
 	private String lastName;
 	
-	@Column(unique=true,nullable=false)
-	private String userName;
+	
+	private String username;
 	private String contact;
 	
-	@Column(unique=true,nullable=false)
+	
 	private String email;
 	private String password;
 	private String role;
-	private boolean isEnabled;
-	private boolean isOnline;
+	private String status;
 	
 	@Lob
 	private byte[] image;
@@ -55,12 +54,12 @@ public class UserDetails
 		this.lastName = lastName;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getContact() {
@@ -95,20 +94,12 @@ public class UserDetails
 		this.role = role;
 	}
 
-	public boolean isEnabled() {
-		return isEnabled;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
-
-	public boolean isOnline() {
-		return isOnline;
-	}
-
-	public void setOnline(boolean isOnline) {
-		this.isOnline = isOnline;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public byte[] getImage() {

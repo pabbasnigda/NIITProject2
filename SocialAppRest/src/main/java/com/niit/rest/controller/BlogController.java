@@ -2,6 +2,8 @@ package com.niit.rest.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,100 +11,116 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.rest.dao.BlogDAO;
+import com.niit.rest.dao.UserDAO;
 import com.niit.rest.model.Blog;
+import com.niit.rest.model.UserDetails;
+
+
 
 @RestController
 public class BlogController 
 {
+
 	@Autowired
-	BlogDAO blogDAO;
+	private BlogDAO blogDAO;
 	
-	@PostMapping(value="/insertBlog")
-	public ResponseEntity<String> insertBlog(@RequestBody Blog blog)
+
+	@Autowired
+	private UserDAO userDAO;
+
+
+	@PostMapping(value ="/insertBlog")
+	public ResponseEntity<String> insertBlog(@RequestBody Blog blog,HttpSession session)
 	{
+		//userDAO.getUserDetails(username)
+		
+		UserDetails	userDetail=(UserDetails)session.getAttribute("üser");
+
+		blog.setCreateDate(new java.util.Date());
+		//blog.setUserId(userDetail.getUser_Id());
+		blog.setStatus("N");
+		blog.setLikes(0);
+		
 		if(blogDAO.addBlog(blog))
 		{
-			return new ResponseEntity<String>("Blog added",HttpStatus.OK);
+			return new ResponseEntity<String>("Blog Added",HttpStatus.OK);
 		}
 		else
 		{
-			return new ResponseEntity<String>("Error in responseentity",HttpStatus.SERVICE_UNAVAILABLE);
+			return new ResponseEntity<String>("Error in Response Entity",HttpStatus.SERVICE_UNAVAILABLE);
 		}
-	}	
-	@PostMapping(value="/updateBlog")
-	public ResponseEntity<String> updateBlog(@RequestBody Blog blog)
+	}
+	
+	@RequestMapping(value="/updateBlog")
+	public  ResponseEntity<String> updateBlog(@RequestBody Blog blog)
 	{
-		Blog tempBlog=blogDAO.getBlog(blog.getBlogId());
-		
+		Blog tempBlog=blogDAO.getBlog(blog.getBlogId());	
 		tempBlog.setBlogName(blog.getBlogName());
 		tempBlog.setBlogContent(blog.getBlogContent());
-		
 		if(blogDAO.updateBlog(tempBlog))
 		{
-			return new ResponseEntity<String>("Blog updated",HttpStatus.OK);
+			return new ResponseEntity<String>("Blog Update",HttpStatus.OK);
+			
 		}
 		else
 		{
-			return new ResponseEntity<String>("Error in responseentity",HttpStatus.SERVICE_UNAVAILABLE);
+			return new ResponseEntity<String>("Error in Blog updation",HttpStatus.SERVICE_UNAVAILABLE);
+			
 		}
 	}
 	
-	@GetMapping(value="/getAllBlogs")
+	@RequestMapping(value="/getAllBlogs")
 	public ResponseEntity<ArrayList<Blog>> getAllBlogs()
 	{
-		ArrayList listblogs= (ArrayList)blogDAO.getAllBlogs();
-		
-		return new ResponseEntity<ArrayList<Blog>>(listblogs,HttpStatus.OK);
+		ArrayList listBlogs = (ArrayList)blogDAO.getAllBlogs();
+		return new ResponseEntity<ArrayList<Blog>>(listBlogs,HttpStatus.OK);
 	}
-	@PostMapping(value="/deleteBlog")
-	public ResponseEntity<String> deleteBlog(@RequestBody Blog blog)
-	{
-		Blog tempBlog=blogDAO.getBlog(blog.getBlogId());
-		if(blogDAO.deleteBlog(tempBlog))
-		{
-			return new ResponseEntity<String>("Blog deleted successfully",HttpStatus.OK);
-		}
+	
+	@GetMapping("/deleteBlog/{blogId}")
+	public ResponseEntity<String> deleteBlog(@PathVariable("blogId") int blogId) {
+		Blog tempblog = blogDAO.getBlog(blogId);
+		System.out.println("deletion in blog");
+		if (blogDAO.deleteBlog(tempblog)) 
+		{			
+			return new ResponseEntity<String>("Blog deleted", HttpStatus.OK);
+		} 
 		else
 		{
-			return new ResponseEntity<String>("Error in responseentity",HttpStatus.SERVICE_UNAVAILABLE);
+			return new ResponseEntity<String>("problem deleting blog", HttpStatus.METHOD_FAILURE);
 		}
 	}
 	
-	@GetMapping(value="/approveBlog/{blogid}")
-	public ResponseEntity<String> approveBlog(@PathVariable("blogid") int blogid)
-	{
-		Blog tempBlog=blogDAO.getBlog(blogid);
-		if(blogDAO.approveBlog(tempBlog))
-		{
-			return new ResponseEntity<String>("Blog approved successfully",HttpStatus.OK);
-		}
-		else
-		{
-			return new ResponseEntity<String>("Error in blog approval",HttpStatus.INTERNAL_SERVER_ERROR);
+	@GetMapping("/approveBlog/{blogId}")
+	public ResponseEntity<String> approveBlog(@PathVariable("blogId") int blogId) {
+		Blog tempblog = blogDAO.getBlog(blogId);
+
+		if (blogDAO.approveBlog(tempblog)) {
+			return new ResponseEntity<String>("Blog approved", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("error in Blog updation", HttpStatus.METHOD_FAILURE);
 		}
 	}
-	
-	@GetMapping(value="/rejectBlog/{blogid}")
-	public ResponseEntity<String> rejectBlog(@PathVariable("blogid") int blogid)
+
+	@GetMapping("/rejectBlog/{blogId}")
+	public ResponseEntity<String> rejectBlog(@PathVariable("blogId") int blogId) 
 	{
-		Blog tempBlog=blogDAO.getBlog(blogid);
-		if(blogDAO.rejectBlog(tempBlog))
-		{
-			return new ResponseEntity<String>("Blog rejected successfully",HttpStatus.OK);
-		}
-		else
-		{
-			return new ResponseEntity<String>("Error in blog rejection",HttpStatus.INTERNAL_SERVER_ERROR);
+		Blog tempblog = blogDAO.getBlog(blogId);
+		if (blogDAO.rejectBlog(tempblog)) {
+			return new ResponseEntity<String>("Blog rejected", HttpStatus.OK);
+
+		} else {
+			return new ResponseEntity<String>("error in Blog updation", HttpStatus.METHOD_FAILURE);
+
 		}
 	}
-	
-	@GetMapping("/incLike/{blogid}")
-	public ResponseEntity<String> incrementLike(@PathVariable("blogid") int blogid)
+	@GetMapping("/incLike/{blogId}")
+	public ResponseEntity<String> incrementLike(@PathVariable("blogId") int blogId)
 	{
-		Blog tempblog=blogDAO.getBlog(blogid);
+		Blog tempblog=blogDAO.getBlog(blogId);
 		if(blogDAO.incrementLike(tempblog))
 		{
 			return new ResponseEntity<String>("like incremented",HttpStatus.OK);

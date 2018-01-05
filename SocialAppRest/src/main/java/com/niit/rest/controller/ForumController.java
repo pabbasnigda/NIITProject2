@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,7 @@ public class ForumController
 		
 		tempForum.setForumName(forum.getForumName());
 		tempForum.setForumContent(forum.getForumContent());
-		tempForum.setUserId(forum.getUserId());
+		//tempForum.setUserId(forum.getUserId());
 		
 		if(forumDAO.updateForum(tempForum))
 		{
@@ -57,21 +58,21 @@ public class ForumController
 	public ResponseEntity<ArrayList<Forum>> getAllForums()
 	{
 		ArrayList listForums=(ArrayList)forumDAO.getAllForums();
-		return new ResponseEntity<ArrayList<Forum>>(listForums,HttpStatus.SERVICE_UNAVAILABLE);
+		return new ResponseEntity<ArrayList<Forum>>(listForums,HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/deleteForum")
-	public ResponseEntity<String> deleteForum(@RequestBody Forum forum)
+	@GetMapping("/deleteForum/{forumId}")
+	 public ResponseEntity<String> deleteForum(@PathVariable("forumId") int forumId) 
 	{
-		Forum tempForum=forumDAO.getForum(forum.getForumId());
-		
-		if(forumDAO.deleteForum(tempForum))
-		{
-			return new ResponseEntity<String>("Forum deleted",HttpStatus.OK);	
-		}
+		Forum tempforum = forumDAO.getForum(forumId);
+		System.out.println("deletion in forum");
+		if (forumDAO.deleteForum(tempforum)) 
+		{			
+			return new ResponseEntity<String>("forum deleted", HttpStatus.OK);
+		} 
 		else
 		{
-			return new ResponseEntity<String>("Error in Forum deletion",HttpStatus.SERVICE_UNAVAILABLE);
+			return new ResponseEntity<String>("problem deleting forum", HttpStatus.METHOD_FAILURE);
 		}
 	}
 }

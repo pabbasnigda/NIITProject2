@@ -14,46 +14,44 @@ public class Job
 	@Id
 	@GeneratedValue
 	int jobId;
-	String jobName;
-	String jobDesc;
-	Double salary;
-	Date PostedDate;
-	Date LastDate;
-	public int getJobId() {
-		return jobId;
-	}
-	public void setJobId(int jobId) {
-		this.jobId = jobId;
-	}
+	String jobProfile,jobDesc,qualification,status;
+	Date postDate;
 	
-	public String getJobDesc() {
-		return jobDesc;
-	}
-	public void setJobDesc(String jobDesc) {
-		this.jobDesc = jobDesc;
-	}
-	public String getJobName() {
-		return jobName;
-	}
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
-	}
-	public Double getSalary() {
-		return salary;
-	}
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
-	public Date getPostedDate() {
-		return PostedDate;
-	}
-	public void setPostedDate(Date postedDate) {
-		PostedDate = postedDate;
-	}
-	public Date getLastDate() {
-		return LastDate;
-	}
-	public void setLastDate(Date lastDate) {
-		LastDate = lastDate;
-	}
+	public int getJobId() {
+	return jobId;
+}
+public void setJobId(int jobId) {
+	this.jobId = jobId;
+}
+public String getJobProfile() {
+	return jobProfile;
+}
+public void setJobProfile(String jobProfile) {
+	this.jobProfile = jobProfile;
+}
+public String getJobDesc() {
+	return jobDesc;
+}
+public void setJobDesc(String jobDesc) {
+	this.jobDesc = jobDesc;
+}
+public String getQualification() {
+	return qualification;
+}
+public void setQualification(String qualification) {
+	this.qualification = qualification;
+}
+public String getStatus() {
+	return status;
+}
+public void setStatus(String status) {
+	this.status = status;
+}
+public Date getPostDate() {
+	return postDate;
+}
+public void setPostDate(Date postDate) {
+	this.postDate = postDate;
+}
+
 }

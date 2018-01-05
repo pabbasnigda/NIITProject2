@@ -18,7 +18,7 @@ public class Forum
 	int forumId;
 	String forumName;
 	String forumContent;
-	int UserId;
+	int userId;
 	String status;
 	Date createDate;
 	public int getForumId() {
@@ -39,11 +39,12 @@ public class Forum
 	public void setForumContent(String forumContent) {
 		this.forumContent = forumContent;
 	}
+	
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 	public String getStatus() {
 		return status;

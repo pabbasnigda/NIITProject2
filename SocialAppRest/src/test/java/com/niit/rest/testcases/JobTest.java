@@ -1,4 +1,4 @@
-package com.niit.rest.testcases;
+/*package com.niit.rest.testcases;
 
 import static org.junit.Assert.*;
 
@@ -68,4 +68,4 @@ public class JobTest
 		assertNotNull("Job not found", job);
 	}
 	
-}
+}*/

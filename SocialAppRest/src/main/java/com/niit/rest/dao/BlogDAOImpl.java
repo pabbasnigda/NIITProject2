@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.niit.rest.model.Blog;
 
 @Repository("blogDAO")
-public class BlogDAOImpl implements BlogDAO
-{	
+public class BlogDAOImpl implements BlogDAO 
+{
 	@Autowired
 	SessionFactory sessionFactory;
+	
 	@Autowired
 	BlogDAO blogDAO;
 	
@@ -24,8 +25,7 @@ public class BlogDAOImpl implements BlogDAO
 	}
 	
 	@Transactional
-	public boolean addBlog(Blog blog) 
-	{
+	public boolean addBlog(Blog blog) {
 		try
 		{
 		sessionFactory.getCurrentSession().save(blog);
@@ -35,24 +35,24 @@ public class BlogDAOImpl implements BlogDAO
 		{
 		System.out.println(e);
 		return false;
-		}
-	}
-
-	@Transactional
-	public boolean updateBlog(Blog blog) 
-	{
-		try
-		{
-		sessionFactory.getCurrentSession().update(blog);
-		return true;
-		}
-		catch(Exception e)
-		{
-		System.out.println("Exception occured:"+e);
-		return false;
 		}	
 	}
 
+	@Transactional
+	public boolean updateBlog(Blog blog) {
+		try
+  		{
+ 		sessionFactory.getCurrentSession().update(blog);
+
+  		return true;
+  		}
+  		catch(Exception e)
+  		{
+
+ 		System.out.println("Exception occured:"+e);
+  		return false;
+  		}	
+	}
 	@Transactional
 	public boolean deleteBlog(Blog blog) 
 	{
@@ -67,17 +67,17 @@ public class BlogDAOImpl implements BlogDAO
 		return false;
 		}	
 	}
-
 	@Transactional
-	public Blog getBlog(int blogId) 
+	public Blog getBlog(int blogId)
 	{
-		Session session=sessionFactory.openSession();
-		Blog blog=(Blog)session.get(Blog.class, blogId);
-		session.close();
-		return blog;
+	Session session=sessionFactory.openSession();
+	Blog blog=(Blog)session.get(Blog.class, blogId);
+	session.close();
+	return blog;
 	}
 	
 	@Transactional
+	@SuppressWarnings("unchecked")
 	public List<Blog> getAllBlogs() 
 	{
 		Session session=sessionFactory.openSession();
@@ -85,78 +85,73 @@ public class BlogDAOImpl implements BlogDAO
 		session.close();
 		return blogList;
 	}
-
+	
 	@Transactional
-	public boolean approveBlog(Blog blog) 
-	{
+	public boolean approveBlog(Blog blog) {
 		try{
-			blog.setStatus("A");
-			sessionFactory.getCurrentSession().saveOrUpdate(blog);
-			return true;
-			}
-			catch(Exception e)
-			{
-			System.out.println("Exception occured:"+e);
-			return false;
-			}	
+		blog.setStatus("A");
+        sessionFactory.getCurrentSession().saveOrUpdate(blog);
+		return true;
+		}
+		catch(Exception e){
+		System.out.println("Exception occured:"+e);
+		return false;
+		}	
 	}
-
+	
 	@Transactional
-	public boolean rejectBlog(Blog blog) 
-	{
+	public boolean rejectBlog(Blog blog) {
 		try{
-			blog.setStatus("N");
-			sessionFactory.getCurrentSession().saveOrUpdate(blog);
-			return true;
-			}
-			catch(Exception e)
-			{
-			System.out.println("Exception occured:"+e);
-			return false;
-			}
-	}
+		blog.setStatus("N");
+ 		sessionFactory.getCurrentSession().saveOrUpdate(blog);
+ 		return true;
+ 		}
+ 		catch(Exception e)
+ 		{
+ 		System.out.println("Exception occured:"+e);
+ 		return false;
+ 		}	
+ 		}
 
-	@Override
 	@Transactional
 	public boolean incrementLike(Blog blog) 
 	{
-		try 
-		{
+		try {
 			blog.setLikes(blog.getLikes() + 1);
 			sessionFactory.getCurrentSession().update(blog);
 			return true;
-		} 
-		catch(Exception e) 
-		{
+		} catch (Exception e) {
 			System.out.println("exception arised" + e);
 			return false;
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
 	public List<Blog> getAllBlogs(int userId) 
 	{
 		Session session = sessionFactory.openSession();
 		List<Blog> blogList= session.createQuery("from Blog where userId = :userId")
 				.setParameter("userId", userId).list();
-		
 		session.close();
-		
 		return blogList;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
 	public List<Blog> getAllPendingBlogs() 
 	{
 		Session session = sessionFactory.openSession();
-		
 		List<Blog> blogList= session.createQuery("from Blog where status = 'PENDING'").list();
-		
 		session.close();
 		
 		return blogList;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
 	public List<Blog> getAllApprovedBlog() 
 	{
@@ -165,9 +160,6 @@ public class BlogDAOImpl implements BlogDAO
 		List<Blog> blogList= session.createQuery("from Blog where status = 'APPROVED'").list();
 		
 		session.close();
-		
 		return blogList;
 	}
-
 }
-

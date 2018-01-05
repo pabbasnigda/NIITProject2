@@ -21,6 +21,7 @@ import com.niit.rest.model.Blog;
 import com.niit.rest.model.Forum;
 import com.niit.rest.model.Friend;
 import com.niit.rest.model.Job;
+import com.niit.rest.model.ProfilePicture;
 import com.niit.rest.model.UserDetails;
 import com.niit.rest.dao.ForumDAO;
 import com.niit.rest.dao.ForumDAOImpl;
@@ -28,6 +29,8 @@ import com.niit.rest.dao.FriendDAO;
 import com.niit.rest.dao.FriendDAOImpl;
 import com.niit.rest.dao.JobDAO;
 import com.niit.rest.dao.JobDAOImpl;
+import com.niit.rest.dao.ProfilePictureDAO;
+import com.niit.rest.dao.ProfilePictureDAOImpl;
 import com.niit.rest.dao.UserDAO;
 import com.niit.rest.dao.UserDAOImpl;
 
@@ -68,6 +71,7 @@ public class Dbconfig
 		localSessionFactoryBuilder.addAnnotatedClass(UserDetails.class);
 		localSessionFactoryBuilder.addAnnotatedClass(Job.class);
 		localSessionFactoryBuilder.addAnnotatedClass(Friend.class);
+		localSessionFactoryBuilder.addAnnotatedClass(ProfilePicture.class);
 		localSessionFactoryBuilder.scanPackages("com.niit.rest");
 		System.out.println("SessionFactory Bean Created");
 		return localSessionFactoryBuilder.buildSessionFactory();
@@ -120,5 +124,13 @@ public class Dbconfig
 	{
 		System.out.println("Friend object created");
 		return new FriendDAOImpl(sessionFactory);
+	}
+	
+	@Autowired
+	@Bean(name = "profilepictureDAO")
+	public ProfilePictureDAO getProfilePictureDAO(SessionFactory sessionFactory)
+	{
+		System.out.println("profile picture object created");
+		return new ProfilePictureDAOImpl(sessionFactory);
 	}
 }
