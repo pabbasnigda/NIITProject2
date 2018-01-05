@@ -11,18 +11,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.1/sockjs.min.js"></script>
 	
 <script src="RouteConfig.js"></script>
+<!-- <script src="user/userService.js"></script> -->
 <script src="User/userController.js"></script>
 <script src="Blog/BlogController.js"></script>
 <script src="Forum/forumController.js"></script>
 <script src="Jobs/jobsController.js"></script>
+
 <script src="Blog/adminBlogController.js"></script>
-<script src="Friend/friendController.js"></script>
+ <script src="Friend/friendController.js"></script>
 <script src="Chat/chatController.js"></script>
 <script src="Chat/chatService.js"></script>
+<!-- <script src="pages/mainController.js"></script> -->
+<!-- <script src="Forum/adminForumController.js"></script>  -->
+
 
 
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
@@ -30,7 +34,7 @@
 <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 </head>
-<body ng-app="myApp">
+<body data-ng-app="myApp">
 	Role:{{currentUser.role}}
 	<nav class="navbar navbar-inverse">
 	<div class="container">
@@ -38,39 +42,59 @@
 	<a class="navbar-brand" href="/">SPA</a>
 	</div>
 
-	<ul class="nav navbar-nav navbar-right">
-	<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-	<li ng-hide="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#register"><i class="fa fa-shield"></i>Registration</a></li>
-	<li ng-hide="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#login"><i class="fa fa-shield"></i>Login</a></li>
-	<li><a href="#Blog"><i class="fa fa-shield"></i>Blog</a></li>
-	<li><a href="#Forum"><i class="fa fa-shield"></i>Forum</a></li>
-	<li><a href="#jobs"><i class="fa fa-shield"></i> Show Job</a></li>
-	<li ng-show="currentUser.role=='ADMIN'"><a href=#addJobs><i class="fa fa-shield"></i>Add Job</a></li>
-	<li ng-show="currentUser.role=='USER'"><a href="#showFriendRequest"><i class="fa fa-shield"></i> Friend Request</a></li>
-	<li ng-show="currentUser.role=='ADMIN'"><a href="#adminBlog"><span class="glyphicon glyphicon-user"></span>Admin Blog</a></li>
-	<li ng-show="currentUser.role=='ADMIN'"><a href="#adminForum"><span class="glyphicon glyphicon-user"></span>Admin Forum</a></li>
+	<ul class="nav navbar-nav ">
 	
-	<li ng-show="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#logout" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
-	<li ng-show="currentUser.role=='USER'"><a href="#friend"><span class="fa fa-shield"></span>Friends</a></li>
-	
-	<li ng-show="currentUser.role=='USER'"><a href="#chat"><span class="fa fa-shield"></span>Chat</a></li>
-	
-	<li ng-show="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#"><i class="fa fa-shield"></i>Welcome:{{currentUser.username}}</a></li>
-	<li ng-show="currentUser.role=='USER'">
-	 
-	
-	</ul>
-</div>
-</div>
+	 <li><a href="#/home">Home</a></li>
 
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/postblog" data-ng-show="currentUser.role=='user'">Create Blog</a></li>
+               <li><a href="#/viewblog">Show Blog</a></li>
+      
+          
+         <li><a href="#/adminBlog" ng-show="currentUser.role=='admin'"> Blog</a></li>
+        </ul>
+      </li>
+      
+       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Forum<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/forum" data-ng-show="currentUser.role=='user'">Show Forum</a></li>
+        </ul>
+      </li>
+      
+      <li><a href="#/register" data-ng-hide="currentUser.firstName">Register</a></li>
+      
+ 		<li><a href="#/login" data-ng-hide="currentUser.firstName">login</a></li>
+        <li><a href="" data-ng-click="logout()" data-ng-show="currentUser.firstName">logout</a></li>
+        
+      <li><a href="#/Chat">Chat</a></li>
+      
+      <li><a href="#/addjobs" ng-show="currentUser.role=='admin'">Add Jobs</a></li>
+      <li ><a href="#/jobs" ng-show="currentUser.role=='user'">Show Job</a></li>
+    </ul>
+    
+      <div class="nav navbar-nav navbar-right" ng-hide="currentUser==undefined">
+         <font color='white' face='calibri' size='4'>Welcome :{{currentUser.username}} &nbsp;&nbsp;&nbsp;
+<!--          <img src="http://localhost:8083/SocialCollRestController/getImage/{{currentUser.username}}" width="20" height=20"/>
+ -->     
+     
+         <a href="#/ProfilePic">Profile Picture</a>
+         
+         <!--   <a href="#" data-ng-click='logout()' data-ng-controller='UserController'>Profile Picture</a> -->
+       
+         </font>
+  	  </div>
+    
+  </div>
 </nav>
-<div id="main">
-		<!-- angular templating -->
-		<!-- this is where content will be injected -->
-		<div ng-view></div>
-</div>
+ <div class="container-fluid">
+ 
+		<div><ng-view></ng-view></div>
+ </div>
+	
 
-<!-- <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script> -->
+
+
+
 </body>
 </html>

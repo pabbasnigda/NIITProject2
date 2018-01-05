@@ -1,9 +1,9 @@
 <center>
-	<b font-size="6">BlogPage</b>
+	<b font-size="6">Blog Page</b>
 </center>
-<div ng-controller="blogController">
+<div ng-controller="BlogController">
 
-	<form id="blogform" data-ng-submit="insertBlog()" method="post">
+	<form id="blogform" data-ng-submit="insertBlog()"method="post">
 		<table align="center" width="100%" border=1>
 			<tr>
 				<td>Blog Name</td>
@@ -18,19 +18,19 @@
 		</table>
 	</form>
 
-<br/><br/><br/><br/>
-	<table align="center" width="100%" border=1>
-		
-		<tr bgcolor="blue">
+<br/>
+	<div class="table-responsive">
+	<table id="myTable" class="table table-striped" >
+		<thead>
+		<tr bgcolor="hotpink">
 			<td>Blog Name</td>
 			<td>Blog Content</td>
-			<td>Likes</td>
 			<td>Operations</td>
 		</tr>
-		<tr bgcolor="cyan" ng-repeat="blog in blogdata">
+		</thead>
+				<tr bgcolor="cyan" ng-repeat="blog in blogdata">
 			<td>{{blog.blogName}}</td>
 			<td>{{blog.blogContent}}</td>
-			<td>{{blog.likes}}<input type="submit" value="Like" ng-click="likeBlog(blog.blogId)"/></td>
 			<td colspan="2"><center><input type="submit" value=" Delete Blog" ng-click="deleteBlog(blog.blogId)"></center>
 		</tr>
 

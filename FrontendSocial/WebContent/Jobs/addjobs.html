@@ -61,3 +61,32 @@
 
 
  
+<<!-- center>
+	<b font-size="6">Jobs Page</b>
+</center>
+<div ng-controller="jobsController">
+	<table>
+		<form id="job">
+			<table border="1">
+					<tr>
+						<td>Job Name</td>
+						<td><input type="text" ng-model="job.jobName"/></td>
+					</tr>
+					<tr>
+						<td>Job Description</td>
+						<td><textarea ng-model="job.jobDesc" cols=30 rows=10></textarea></td>
+					</tr>
+					<tr>
+						<td>Salary</td>
+						<td><input type="text" ng-model="job.salary"/></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						<input type="submit" value="Post Job" ng-click="postJob()"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</table>
+</div>
+  -->

@@ -18,10 +18,10 @@
 			<tr bgcolor="cyan" ng-repeat="blog in blogdata">
 				<td><a href="BlogPage">{{blog.blogName}}</a></td>
 				<td>{{blog.blogContent}}</td>
-				<td ng-show="blog.status=='NA'">
+				<td ng-show="blog.status=='N'">
 				<input type="submit" value="Approve" ng-click="approveBlog(blog.blogId)"/></td>
-				<td ng-show="blog.status=='A'">
-				<input type="submit" value="Reject" ng-click="rejectBlog(blog.blogId)" /></td>
+				<!-- <td ng-show="blog.status=='A'">
+				<input type="submit" value="Reject" ng-click="rejectBlog(blog.blogId)" /></td> -->
 						
 			</tr>
 		</table>

@@ -1,20 +1,27 @@
 var myapp=angular.module("myApp",['ngRoute','ngCookies']);
-myapp.config(function($routeProvider) 
+myapp.config(function($routeProvider, $locationProvider) 
 {
-		$routeProvider.when("#/",{templateUrl:"index.html"})
-					  .when('/', {templateUrl : 'pages/home.html',controller : 'mainController'})
-					  .when("/Blog",{templateUrl:"Blog/Blog.html",controller:'BlogController'})
-					  .when("/Forum",{templateUrl:"Forum/Forum.html",controller:'forumController'})
-					  .when("/adminBlog",{templateUrl:"Blog/adminBlog.html",controller:'adminBlogController'})
-					  .when("/Jobs",{templateUrl:"Jobs/jobs.html",controller:'jobsController'})
-					  .when("/login",{templateUrl:"User/login.html",controller:'userController'})
-					  .when("/register",{templateUrl:"User/registration.html",controller:'userController'})
-					  .when("/friend",{templateUrl:"Friend/friend.html",controller:'friendController'})
-					  .when("/Chat",{templateUrl:"Chat/Chat.html",controller:'chatController'})
-					  
+	$locationProvider.hashPrefix('');
+	$routeProvider.when("#/",{templateUrl:"index.html"})
+		.when("/home",{templateUrl:"pages/home.html"})
+	  .when("/postblog",{templateUrl:"Blog/Blog.html"})
+	  .when("/viewblog",{templateUrl:"Blog/ViewBlog.html"})
+	  .when("/forum",{templateUrl:"Forum/Forum.html"})
+	  .when("/adminBlog",{templateUrl:"Blog/adminBlog.html"})
+	  .when("/register",{templateUrl:"User/registration.html"})
+	  .when("/login",{templateUrl:"User/login.html"})
+	  .when("/UserHome",{templateUrl:"User/UserHome.html"})
+	  .when("/Friend",{templateUrl:"Friend/friend.html"})
+	  .when("/jobs",{templateUrl:"Jobs/jobs.html"})
+	  .when("/addjobs",{templateUrl:"jobs/addjobs.html"})
+	  .when("/showFriendRequest",{templateUrl:"Friend/showFriendRequest.html"})
+	 
+	  .when("/logout",{templateUrl:"User/logout.html"})
+	  .when("/Chat",{templateUrl:"Chat/Chat.html"});
 });
 
-myapp.run(function($rootScope,$cookieStore){
+myapp.run(function($rootScope,$cookieStore)
+{
 	console.log('i am in run function');
 	console.log($rootScope.currentUser);
 	if($rootScope.currentUser==undefined)
