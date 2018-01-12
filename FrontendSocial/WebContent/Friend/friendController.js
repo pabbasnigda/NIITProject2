@@ -10,33 +10,34 @@ myapp.controller("friendController", function($scope, $http, $location,$rootScop
 		.then(function(response) 
 			{
 			$scope.allFriendRequest = response.data;
-			console.log($scope.currentUser.username);
+		/*	console.log($scope.currentUser.username);*/
 			console.log($scope.allFriendRequest);
 			});
 		}
+		
 		fetchAllFriendRequests();
 		
-		$scope.approve=function(friendId)
+		$scope.approvalFriendRequest=function(friendId)
 		{
 			console.log("approving friend request");
-			$http.get("http://localhost:8181/SocialAppRest/approvalFriendRequest/"+friendId)
+			$http.get("http://localhost:8181/SocialAppRest/approvalFriendRequest"+friendId)
 			.success(function(response)
 			{
 				console.log("successfully approved");
-				location.path("/showFriendRequest");
-			});
+/*				location.path("/showFriendRequest");
+*/			});
 			
 		}
-		$scope.reject=function(friendId)
+		$scope.rejectFriendRequest=function(friendId)
 		{
 			console.log("rejecting the friend request");
-			$http.get("http://localhost:8181/SocialAppRest/rejectFriendRequest/"+friendId)
+			$http.get("http://localhost:8181/SocialAppRest/rejectFriendRequest"+friendId)
 			.success(function(response){
 				console.log("successfully rejected");
-				location.path("/showFriendRequest");
+			/*	location.path("/showFriendRequest");*/
 			});
 		};
-		$scope.addFriend=function()
+		$scope.createFriendRequest=function()
 		{
 			console.log("sending friend request");
 			$http.post("http://localhost:8181/SocialAppRest/createFriendRequest",$scope.friend)

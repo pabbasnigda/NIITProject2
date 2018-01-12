@@ -1,0 +1,20 @@
+<div data-ng-controller="forumController">
+<center><h2>List of Forums</h2></center>
+		<div class="table-responsive">
+	<table id="myTable" class="table table-striped" >
+		<thead>
+		<tr bgcolor="hotpink">
+			<td>Forum Name</td>
+			<td>Forum Content</td>
+			
+		</tr>
+		</thead>
+				<tr bgcolor="cyan" ng-repeat="forum in forumdata">
+			<td>{{forum.forumName}}</td>
+			<td>{{forum.forumContent}}</td>
+			<td colspan="2">
+		</tr>
+
+	</table>
+</div>
+</div>

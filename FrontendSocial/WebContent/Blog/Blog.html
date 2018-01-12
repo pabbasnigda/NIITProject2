@@ -25,13 +25,17 @@
 		<tr bgcolor="hotpink">
 			<td>Blog Name</td>
 			<td>Blog Content</td>
+			<td><b>Likes</b></td>
 			<td>Operations</td>
 		</tr>
 		</thead>
 				<tr bgcolor="cyan" ng-repeat="blog in blogdata">
 			<td>{{blog.blogName}}</td>
 			<td>{{blog.blogContent}}</td>
-			<td colspan="2"><center><input type="submit" value=" Delete Blog" ng-click="deleteBlog(blog.blogId)"></center>
+			<td>{{blog.likes}} <input type="submit" value="Like" ng-click="incLike(blog.blogId)"/></td>
+			
+		<td ng-show="currentUser.role=='user'"><input type="submit" value="Delete" ng-click="deleteBlog(blog.blogId)"/></td>
+		<td ng-show="currentUser.role=='user'"><input type="submit" value="Update" ng-click="updateBlog(blog.blogId)"/></td>
 		</tr>
 
 	</table>

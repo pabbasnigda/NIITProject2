@@ -1,22 +1,24 @@
-<div ng-controller="userController">
-		<form id="Users">
-			<table align="center" border="1">
-					<tr>
-						<td colspan="2"><center>Login</center></td>
-					</tr>
-					<tr>
-						<td>User Name</td>
-						<td><input type="text" ng-model="user.username"/></td>
-					</tr>
-					<tr>
-						<td>Password</td>
-						<td><input type="password" ng-model="user.password"/></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit" value="Login" ng-click="login()"/>
-						</td>
-					</tr>
-			</table>
-		</form>
+<div data-ng-controller='userController'>
+<div class="container" align="justify">
+		<div class="row vertical-offset-100">
+		    <div class="col-md-6 col-md-offset-14">
+		    	<div class="panel panel-default">
+					<div class="panel-heading">
+				    	<h3 class="panel-title" align="center"><i>LOGIN</i></h3>
+				 	</div>
+					<fieldset><br>
+					
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter UserName</i></label><input type="text" data-ng-model="user.username"><br>
+						</div>
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Password</i></label><input type="password" data-ng-model="user.password"><br>
+						</div>
+				
+						<div class="form-group" align="center"><input type="submit" value="login" data-ng-click="login()"><br></div><br>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+</div>
 </div>

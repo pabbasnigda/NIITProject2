@@ -23,6 +23,7 @@ myapp.controller("userController",function($scope,$http,$location,$rootScope,$co
 		.then(function(response)
 				{
 					console.log('Successfully Registered');
+					$location.path("/login");
 				});
 	};
 	
@@ -37,7 +38,7 @@ myapp.controller("userController",function($scope,$http,$location,$rootScope,$co
 				$rootScope.currentUser=response.data;
 				$cookieStore.put('userDetails',response.data);
 				console.log($rootScope.currentUser.role);
-				$location.path("/UserHome");
+				$location.path("/Userhome");
 			});
 	};
 	

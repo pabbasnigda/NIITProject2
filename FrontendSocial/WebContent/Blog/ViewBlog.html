@@ -1,17 +1,19 @@
 <div data-ng-controller="BlogController">
-
+<center><h2>List of Blogs</h2></center>
 		<div class="table-responsive">
 	<table id="myTable" class="table table-striped" >
 		<thead>
 		<tr bgcolor="hotpink">
 			<td>Blog Name</td>
 			<td>Blog Content</td>
-			<td>Operations</td>
+			<td>Blog Likes</td>
+			
 		</tr>
 		</thead>
-				<tr bgcolor="cyan" ng-repeat="blog in approveBlog">
+				<tr bgcolor="cyan" ng-repeat="blog in blogdata">
 			<td>{{blog.blogName}}</td>
 			<td>{{blog.blogContent}}</td>
+			<td>{{blog.likes}}</td>
 			<td colspan="2">
 		</tr>
 

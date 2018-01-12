@@ -1,39 +1,51 @@
-<div ng-controller="userController">
-	<table>
-		<form id="Users">
-			<table>
-					<tr>
-						<td>User Name</td>
-						<td><input type="text" ng-model="user.username"/></td>
-					</tr>
-					<tr>
-						<td>Password</td>
-						<td><input type="password" ng-model="user.password"/></td>
-					</tr>
-					<tr>
-						<td>First Name</td>
-						<td><input type="text" ng-model="user.firstName"/></td>
-					</tr>
-					<tr>
-						<td>Last Name</td>
-						<td><input type="text" ng-model="user.lastName"/></td>
-					</tr>
-					<tr>
-						<td>emailId</td>
-						<td><input type="text" ng-model="user.email"/></td>
-					</tr>
-					<tr>
-						<td>contact</td>
-						<td><input type="text" ng-model="user.contact"/></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit" value="register" ng-click="register()"/>
-						</td>
-					</tr>
-					
-			</table>
-		</form>
-		
-	</table>
+<!doctype html>
+<html>
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration</title>
+</head>
+<body>
+ <div data-ng-controller='userController'>
+<div class="container" align="justify">
+		<div class="row vertical-offset-100">
+		    <div class="col-md-6 col-md-offset-14">
+		    	<div class="panel panel-default">
+					<div class="panel-heading">
+				    	<h3 class="panel-title" align="center"><i>REGISTRATION</i></h3>
+				 	</div>
+					<fieldset><br>
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Firstname</i></label><input type="text" ng-model="user.firstName"><br>
+						</div>	
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Lastname</i></label><input type="text" ng-model="user.lastName"><br>
+						</div>
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Email</i></label><input type="text" ng-model="user.email"><br>
+						</div>
+							<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Contact</i></label><input type="text" ng-model="user.contact"><br>
+						</div>
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Username</i></label><input type="text" ng-model="user.username"><br>
+						</div>
+						
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Enter Password</i></label><input type="password" ng-model="user.password"><br>
+						</div>
+						<div class="form-group" align="center">
+							<label class="col-md-4 control-label"><i>Select Role</i></label><input type="radio" ng-model="user.role" value="Student">Student
+							<input type="radio" ng-model="user.role" value="Alumini">User
+							<input type="radio" ng-model="user.role" value="admin">Admin
+						</div>
+						<div class="form-group" align="center"><input type="submit" value="Register" data-ng-click="register()"><br></div><br>
+					</fieldset>
+				</div>
+			</div>
+		</div>
 </div>
+</div>
+
+</body>
+</html>

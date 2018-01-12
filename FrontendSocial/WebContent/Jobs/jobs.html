@@ -3,9 +3,8 @@
 </center>
 <div ng-controller="jobsController">
 
-	<form id="Jobsform" data-ng-submit="insertJobs()"method="post">
-		<table align="center" width="80%" border="1">
-			<tr>
+	<form id="Jobsform" data-ng-submit="insertJob()"method="post">
+		<table align="center" width="100%" border=1>
 				<td>Job Profile</td>
 				<td><input type="text" name="jobProfile" data-ng-model="job.jobProfile"/></td>
 			</tr>
@@ -28,13 +27,14 @@
 				<td><textarea cols="30" row="10" name="status" data-ng-model="job.status" /></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2"><center><input type="submit" value="Post Job"  ng-click="postJob()"></center></td>
+				<td colspan="2"><center><input type="submit" value="Post Job"  ng-click="insertJob()"></center></td>
 		</table>
 	</form>
 
 <br/>
-	<table align="center" width="100" border=1>
-		
+	<div class="table-responsive">
+	<table id="myTable" class="table table-striped" >
+		<thead>
 		<tr bgcolor="orange">
 			<td>Jobs Profile</td>
 			<td>Jobs Qualification</td>
@@ -43,6 +43,7 @@
 		<td>Job Status</td>
 			
 		</tr>
+		</thead>
 		<tr bgcolor="cyan" ng-repeat="jobs in jobsdata">
 			<td>{{jobs.jobProfile}}</td>
 			<td>{{jobs.qualification}}</td>
@@ -53,11 +54,3 @@
 
 	</table>
 </div>
-
-
-
-
-
-
-
- 

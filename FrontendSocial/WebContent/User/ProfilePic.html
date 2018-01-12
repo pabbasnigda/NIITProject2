@@ -1,0 +1,17 @@
+<div ng-controller="userController">
+
+ 
+<div class ="form-group">
+      <form enctype="multipart/form-data" method="post" action="http://localhost:8181/SocialAppRest/doUpload">
+          <input type="file" class="file" name="file" id="file"/>
+          <input type="hidden" name="username" id="username" value="{{currentUser.username}}"/>
+          <input type="submit" value="upload" data-ng-submit="doUpload()">
+      </form>
+  </div>
+
+
+<!-- 
+<input type="file" name="file" data-upload-url="http://localhost:8181/Collabaration/doUpload" data-preview-file-type="any"/>
+-->
+
+</div>

@@ -1,0 +1,26 @@
+<div data-ng-controller="jobsController">
+
+	<div class="table-responsive">
+	<table id="myTable" class="table table-striped" >
+		<thead>
+		<!-- <tr bgcolor="hotpink">
+ -->		<tr bgcolor="blue">
+			<td>Jobs Profile</td>
+			<td>Jobs Qualification</td>
+			<td>Jobs Description</td>
+			<td>Post Date</td>
+		<td>Job Status</td>
+			
+		</tr>
+		</thead>
+		<tr bgcolor="cyan" ng-repeat="jobs in jobsdata">
+			<td>{{jobs.jobProfile}}</td>
+			<td>{{jobs.qualification}}</td>
+			<td>{{jobs.jobDesc}}</td>
+			<td>{{jobs.postDate}}</td>
+			<td>{{jobs.status}}</td>
+			<td colspan="2">
+		</tr>
+
+	</table>
+	</div>
