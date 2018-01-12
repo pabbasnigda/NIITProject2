@@ -49,6 +49,7 @@ public class Dbconfig
 		driverManagerDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
 		driverManagerDataSource.setUsername("niit2");
 		driverManagerDataSource.setPassword("niit2");
+		System.out.println("Database is connected...!!!");
 		return driverManagerDataSource;
 	}
 	public Properties getHibernateProperties()
@@ -127,7 +128,7 @@ public class Dbconfig
 	}
 	
 	@Autowired
-	@Bean(name = "profilepictureDAO")
+	@Bean(name = "profilePictureDAO")
 	public ProfilePictureDAO getProfilePictureDAO(SessionFactory sessionFactory)
 	{
 		System.out.println("profile picture object created");

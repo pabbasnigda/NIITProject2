@@ -26,12 +26,9 @@ public class FriendController
 	public ResponseEntity<String> createFriendRequest(@RequestBody Friend friend) 
 	{
 		friend.setStatus("R");
-		if (friendDAO.createFriend(friend)) 
-		{
+		if (friendDAO.createFriend(friend)) {
 			return new ResponseEntity<String>("Success", HttpStatus.OK);
-		}
-		else 
-		{
+		} else {
 			return new ResponseEntity<String>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -66,7 +63,11 @@ public class FriendController
 	@GetMapping(value="/getAllFriendRequest")
 	public ResponseEntity<List<Friend>> getAllFriendRequest(HttpSession session)
 	{
+	//	UsersDetails	userDetail=(UsersDetails)session.getAttribute("üser");
+
 		String currentUser=(String)session.getAttribute("currentUser");
+		currentUser="Sai";
+		System.out.println("Current User:"+currentUser);
 		List<Friend> listFriendRequests=friendDAO.getAllFriendRequest(currentUser);
 		return new ResponseEntity<List<Friend>>(listFriendRequests,HttpStatus.OK);
 	}

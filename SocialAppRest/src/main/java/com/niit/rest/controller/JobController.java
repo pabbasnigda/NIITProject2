@@ -19,26 +19,19 @@ import com.niit.rest.model.Job;
 @RestController
 public class JobController 
 {
-	@Autowired 
-	JobDAO jobDAO;
+
+	@Autowired
+	 private JobDAO jobDAO;
 	
 	@PostMapping(value="/insertJob")
-	public ResponseEntity<String> insertJob(@RequestBody Job job)
+	public ResponseEntity<String> insertJobs(@RequestBody Job job)
 	{
+		job.setPostDate(new java.util.Date());
 		if(jobDAO.addJob(job))
-		{
-			return new ResponseEntity<String>("Job Added",HttpStatus.OK);
-			
-		}
+			return new ResponseEntity<String>("Job added",HttpStatus.OK);
 		else
-		{
-			return new ResponseEntity<String>("Error in Response Entity",HttpStatus.SERVICE_UNAVAILABLE);
-		}
-		}
-
-	
-	
-	
+			return new ResponseEntity<String>("Exception arised",HttpStatus.SERVICE_UNAVAILABLE);
+	}
 	@RequestMapping(value="/getAllJobs")
 	public ResponseEntity<ArrayList<Job>> getAllJobs()
 	{
@@ -46,7 +39,7 @@ public class JobController
 		return new ResponseEntity<ArrayList<Job>>(listJobs,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "deleteJob")
+	@RequestMapping(value = "/deleteJob")
 	public ResponseEntity<String> deleteJob(@RequestBody Job job)
 	{
 		Job tempjob=jobDAO.getJob(job.getJobId());

@@ -3,18 +3,19 @@ package com.niit.rest.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.Table;
 
 @Entity
-@Component
+@Table
 public class ProfilePicture 
 {
-	@Id
-	private String username;
-	@Lob
-	private byte[] image;
-	public String getUsername() {
+
+@Id
+private String username;
+@Lob
+private byte[] image;
+
+public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {

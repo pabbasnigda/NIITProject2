@@ -2,6 +2,8 @@ package com.niit.rest.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.rest.dao.ForumDAO;
+import com.niit.rest.dao.UserDAO;
+import com.niit.rest.model.Blog;
 import com.niit.rest.model.Forum;
+import com.niit.rest.model.UserDetails;
 
 
 
@@ -21,10 +26,17 @@ public class ForumController
 {
 	@Autowired 
 	ForumDAO forumDAO;
+	@Autowired
+	private UserDAO userDAO;
 	
 	@PostMapping(value="/insertForum")
-	public ResponseEntity<String> insertForum(@RequestBody Forum forum)
+	public ResponseEntity<String> insertForum(@RequestBody Forum forum,HttpSession session)
 	{
+		UserDetails	userDetail=(UserDetails)session.getAttribute("üser");
+		
+		forum.setCreateDate(new java.util.Date());
+		forum.setStatus("N");
+		
 		if(forumDAO.addForum(forum))
 		{
 			return new ResponseEntity<String>("Forum Added",HttpStatus.OK);
@@ -73,6 +85,33 @@ public class ForumController
 		else
 		{
 			return new ResponseEntity<String>("problem deleting forum", HttpStatus.METHOD_FAILURE);
+		}
+	}
+	
+	@GetMapping("/approveForum/{forumId}")
+	public ResponseEntity<String> approveForum(@PathVariable("forumId") int forumId) 
+	{
+		Forum tempforum = forumDAO.getForum(forumId);
+
+		if (forumDAO.approveForum(tempforum)) 
+		{
+			return new ResponseEntity<String>("forum approved", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("error in forum approved", HttpStatus.METHOD_FAILURE);
+		}
+	}
+	
+	@GetMapping("/rejectForum/{forumId}")
+	public ResponseEntity<String> rejectForum(@PathVariable("forumId") int forumId) 
+	{
+		Forum tempforum = forumDAO.getForum(forumId);
+		if (forumDAO.rejectForum(tempforum)) 
+		{
+			return new ResponseEntity<String>("forum rejected", HttpStatus.OK);
+
+		} else {
+			return new ResponseEntity<String>("error in forum rejected", HttpStatus.METHOD_FAILURE);
+
 		}
 	}
 }

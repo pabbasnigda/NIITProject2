@@ -10,6 +10,7 @@ import javax.persistence.Table;
 public class Friend 
 {
 	@Id
+	@GeneratedValue
 	int friendId;
 	String friendname;
 	String username;

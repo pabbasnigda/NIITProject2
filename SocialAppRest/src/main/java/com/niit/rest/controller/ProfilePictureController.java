@@ -5,40 +5,57 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.niit.rest.dao.ProfilePictureDAO;
 import com.niit.rest.model.ProfilePicture;
+import com.niit.rest.model.UserDetails;
 
 
-@RestController
+
+@Controller
 public class ProfilePictureController 
-{	
+{
 	@Autowired
-	ProfilePictureDAO profilePictureDAO;	
+	private ProfilePictureDAO profilePictureDao;
 	
-	@PostMapping("/doUpload")
-	public ResponseEntity<?> uploadProfilePicture(@RequestParam(value="file") CommonsMultipartFile fileUpload,HttpSession session)
+	@RequestMapping(value="/doUpload",method=RequestMethod.POST)
+	public ResponseEntity<?> uploadProfilePicture(@RequestParam CommonsMultipartFile image,HttpSession session)
 	{
-		System.out.println("uploading picture");
-		ProfilePicture profilePicture=new ProfilePicture();
-		profilePicture.setUsername("raju");
-		System.out.println(fileUpload.getBytes());	
-		System.out.println("picture uploaded");
-		profilePicture.setImage(fileUpload.getBytes());
-		profilePictureDAO.save(profilePicture);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}	
-	@GetMapping(value="/getImage/{username}")
-	public @ResponseBody byte[] getProfilePic(@PathVariable("username")String username,HttpStatus session)
+		UserDetails users=(UserDetails)session.getAttribute("user");
+		if(users==null)		
+		{
+		   Error error=new Error("UnAuthorized user");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+	} 
+	ProfilePicture profilePicture=new ProfilePicture();
+	profilePicture.setUsername(users.getUsername());
+	profilePicture.setImage(image.getBytes());
+	profilePictureDao.saveProfilePicture(profilePicture);
+	return new ResponseEntity<UserDetails>(users,HttpStatus.OK);
+}
+	
+	
+	@RequestMapping(value="/getimage/{username}", method=RequestMethod.GET)
+	public @ResponseBody byte[] getProfilePic(@PathVariable String username,HttpSession session)
 	{
-		ProfilePicture profilePicture=profilePictureDAO.getProfilePicture(username);
-		return profilePicture.getImage();
-	}
+		UserDetails user=(UserDetails)session.getAttribute("user");
+		if(user==null)
+			return null;
+		else
+		{
+			ProfilePicture profilePic=profilePictureDao.getProfilePicture(username);
+			if(profilePic==null)
+				return null;
+			else
+				return profilePic.getImage();
+		}
+		
+}
 }

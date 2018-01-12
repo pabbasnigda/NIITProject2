@@ -9,37 +9,36 @@ import org.springframework.transaction.annotation.Transactional;
 import com.niit.rest.model.ProfilePicture;
 
 
-@Repository("profilepictureDAO")
-public class ProfilePictureDAOImpl implements ProfilePictureDAO 
+@Repository("profilePictureDAO")
+public class ProfilePictureDAOImpl implements ProfilePictureDAO
 {
-	@Autowired
-	SessionFactory sessionFactory;
-
-	public ProfilePictureDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+    @Autowired
+	private SessionFactory sessionFactory;
+    
+    
+	public ProfilePictureDAOImpl(SessionFactory sessionFactory) 
+	{
+		this.sessionFactory=sessionFactory;
 	}
 
 	@Transactional
-	@Override
-	public boolean save(ProfilePicture profilePicture) 
+	public void saveProfilePicture(ProfilePicture profilePicture) 
 	{
-		try 
-		{
-			sessionFactory.getCurrentSession().save(profilePicture);
-			return true;
-		} catch (Exception e) 
-		{
-			System.out.println("exception arised" + e);
-			return false;
-		}
+		Session session=sessionFactory.openSession();
+		session.saveOrUpdate(profilePicture);
+		session.flush();
+		session.close();
+		
 	}
 
-	@Override
+	@Transactional
 	public ProfilePicture getProfilePicture(String username) 
 	{
-		Session session = sessionFactory.openSession();
-		ProfilePicture profilePicture = (ProfilePicture) session.get(ProfilePicture.class, username);
+		Session session=sessionFactory.openSession();
+		//select * from profilepicture where username='admin'
+		ProfilePicture profilePicture=(ProfilePicture)session.get(ProfilePicture.class, username);
 		session.close();
 		return profilePicture;
 	}
+
 }
